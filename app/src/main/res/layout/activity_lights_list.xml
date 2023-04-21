@@ -3,7 +3,7 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/rootLayout"
+        android:id="@+id/lightsLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <androidx.appcompat.widget.Toolbar
@@ -17,7 +17,7 @@
             android:minHeight="?attr/actionBarSize"
             android:theme="?attr/actionBarTheme" />
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/lstJokes"
+            android:id="@+id/lstLights"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:background="@android:color/background_light"

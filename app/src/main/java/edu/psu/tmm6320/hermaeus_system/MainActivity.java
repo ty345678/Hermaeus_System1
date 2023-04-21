@@ -19,6 +19,8 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
+
     String VideoURL = "http:192.168.0.100";
 //    VideoView videoview;
 
