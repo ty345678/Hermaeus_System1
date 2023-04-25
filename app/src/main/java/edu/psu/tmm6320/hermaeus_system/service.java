@@ -18,12 +18,12 @@ public class service extends Service {
     }
     @Override
     public void onCreate() {
-        Toast.makeText(this, "Service created!", Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, "Service created!", Toast.LENGTH_LONG).show();
 
         handler = new Handler();
         runnable = new Runnable() {
             public void run() {
-                Toast.makeText(context, "Service is still running", Toast.LENGTH_LONG).show();
+               // Toast.makeText(context, "Service is still running", Toast.LENGTH_LONG).show();
                 handler.postDelayed(runnable, 10000);
             }
         };

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.room.Database;
@@ -26,20 +27,27 @@ public abstract class LightDatabase extends RoomDatabase {
         if(INSTANCE==null){
             synchronized (LightDatabase.class){
                 if(INSTANCE==null){
-                    INSTANCE = Room.databaseBuilder(context.getApplicationContext(), LightDatabase.class,"light_database")
+                    INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
+                                    LightDatabase.class,"light_database")
                             .addCallback(createLightDatabaseCallback)
                             .build();
+                    Log.d("lightss", "CREATEING INSTANCE OF DB");
+
 
                 }
             }
         }
         return INSTANCE;
     }
-private static RoomDatabase.Callback createLightDatabaseCallback = new RoomDatabase.Callback() {
+    private static RoomDatabase.Callback createLightDatabaseCallback = new RoomDatabase.Callback() {
             //@Override
             public void OnCreate (@NonNull SupportSQLiteDatabase db){
                 super.onCreate(db);
-                createLightTable();
+                for(int i=0;i<DefaultContent.NAME.length;i++){
+                    insert(new Light(0,DefaultContent.NAME[i],DefaultContent.RED[i],DefaultContent.GREEN[i],DefaultContent.BLUE[i],false));
+
+                }
+                //createLightTable();
         }
     };
 
@@ -56,18 +64,13 @@ private static RoomDatabase.Callback createLightDatabaseCallback = new RoomDatab
 //                }
 //            }
 //        };
-    private static void createLightTable(){
-        for(int i=0;i<DefaultContent.NAME.length;i++){
-            insert(new Light(0,DefaultContent.NAME[i],DefaultContent.RED[i],DefaultContent.GREEN[i],DefaultContent.BLUE[i],false));
+//    private static void createLightTable(){
+//        for(int i=0;i<DefaultContent.NAME.length;i++){
+//            insert(new Light(0,DefaultContent.NAME[i],DefaultContent.RED[i],DefaultContent.GREEN[i],DefaultContent.BLUE[i],false));
+//
+//        }
+//    }
 
-        }
-    }
-
-    public static void insert(Light light){
-        (new Thread(()->INSTANCE.lightDAO().insert(light))).start();
-//        new Thread(()-> getDatabase(Context).cameraDAO().insert(light)).start();
-
-    }
 
     public static void getLight(int id,LightListener listener){
         Handler handler = new Handler(Looper.getMainLooper()) {
@@ -84,15 +87,24 @@ private static RoomDatabase.Callback createLightDatabaseCallback = new RoomDatab
 
 
     }
-    public static void delete(Light light){
+
+
+    public static void insert(Light light){
+        (new Thread(()->INSTANCE.lightDAO().insert(light))).start();
+//        new Thread(()-> getDatabase(Context).cameraDAO().insert(light)).start();
+
+    }
+    public static void delete(int lightId){
         (new Thread(()->
-                INSTANCE.lightDAO().delete(light))).start();
+                INSTANCE.lightDAO().delete(lightId))).start();
     }
     public static void update(Light light){
         (new Thread(()->INSTANCE.lightDAO().update(light))).start();
     }
 
-
+    public static void update(int lightID, boolean lightLiked){
+        (new Thread(()->INSTANCE.lightDAO().update(lightID,lightLiked))).start();
+    }
 
 
 }

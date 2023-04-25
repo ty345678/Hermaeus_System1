@@ -1,4 +1,4 @@
-package edu.psu.tmm6320.hermaeus_system;
+package edu.psu.tmm6320.hermaeus_system.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -10,10 +10,14 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.MediaController;
 import android.widget.VideoView;
 
 import com.longdo.mjpegviewer.MjpegView;
+
+import edu.psu.tmm6320.hermaeus_system.R;
+import edu.psu.tmm6320.hermaeus_system.service;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -44,6 +48,19 @@ public class MainActivity extends AppCompatActivity {
         StartStream(findViewById(R.id.stream_Back),"http://192.168.0.150:8000/stream.mjpg" );
         StartStream(findViewById(R.id.stream_RightMirror),"http://192.168.0.100" );
         //StartStream(findViewById(R.id.stream_LeftMirror),"http://192.168.0.100" );
+
+
+
+        Button btn = (Button)findViewById(R.id.button4);
+
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, LightsActivity.class));
+            }
+        });
+
+
 
 
 //when user leaves application
@@ -119,8 +136,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-
-
 
 
 

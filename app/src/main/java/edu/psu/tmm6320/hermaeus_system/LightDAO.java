@@ -13,11 +13,11 @@ import androidx.room.Update;
 public interface LightDAO {
 
     @Query("SELECT * FROM lights ORDER BY name")
-    LiveData<List<Light>> getAll();
+    LiveData<List<LightStatus>> getAll();
 
     @Query("SELECT * FROM lights WHERE liked = :onlyLiked " +
-            "ORDER BY name COLLATE NOCASE, rowid")
-    LiveData<List<Light>> getLiked(boolean onlyLiked);
+            "ORDER BY name COLLATE NOCASE, id")
+    LiveData<List<LightStatus>> getLiked(boolean onlyLiked);
 
     @Query("SELECT * FROM lights WHERE id = :lightsId")
     Light getById(int lightsId);
@@ -27,8 +27,10 @@ public interface LightDAO {
     void update(Light... lights);
     @Delete
     void delete(Light... lights);
+    @Query("DELETE FROM lights WHERE id=:lightId")
+    void delete(int lightId);
 
-
-
+    @Query("UPDATE lights SET liked = :likeValue WHERE rowid = :id")
+    void update(int id, Boolean likeValue);
 
 }

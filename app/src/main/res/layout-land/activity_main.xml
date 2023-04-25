@@ -98,6 +98,7 @@
         app:layout_constraintBottom_toTopOf="@id/guidelineH99"
         app:layout_constraintStart_toEndOf="@id/guidelineV66"
         app:layout_constraintEnd_toStartOf="@id/guidelineV83"
+
         />
     <androidx.constraintlayout.widget.Guideline
         android:saveEnabled="true"

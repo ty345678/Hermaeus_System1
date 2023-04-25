@@ -17,7 +17,7 @@
             android:minHeight="?attr/actionBarSize"
             android:theme="?attr/actionBarTheme" />
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/lstJokes"
+            android:id="@+id/lstLights"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:background="@android:color/background_light"

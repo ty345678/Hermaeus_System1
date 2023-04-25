@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/my_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"/>
+
+    <TextView
+        android:id="@+id/lblTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:labelFor="@+id/txtEditTitle"
+        android:text="Name of Light Color"
+        android:importantForAutofill="no"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/my_toolbar"
+        app:layout_constraintBottom_toTopOf="@+id/txtEditName"
+        />
+
+    <EditText
+        android:id="@+id/txtEditName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textAutoComplete|textMultiLine|textCapSentences"
+        android:layout_marginLeft="30dp"
+        android:importantForAutofill="no"
+        app:layout_constraintTop_toBottomOf="@+id/lblTitle"
+        app:layout_constraintBottom_toTopOf="@+id/lblRed"
+        />
+
+
+    <TextView
+        android:id="@+id/lblRed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:labelFor="@+id/txtEditRed"
+        android:text="Red"
+        android:layout_marginLeft="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtEditName"
+        app:layout_constraintBottom_toTopOf="@+id/txtEditRed"
+        />
+
+    <EditText
+        android:id="@+id/txtEditRed"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textAutoComplete|textMultiLine|textCapSentences"
+        android:layout_marginLeft="30dp"
+        android:importantForAutofill="no"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lblRed"
+        app:layout_constraintBottom_toTopOf="@+id/lblGreen"
+        />
+    <TextView
+        android:id="@+id/lblGreen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:labelFor="@+id/txtEditGreen"
+        android:text="Green"
+        android:layout_marginLeft="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtEditRed"
+        app:layout_constraintBottom_toTopOf="@+id/txtEditGreen"
+        />
+
+    <EditText
+        android:id="@+id/txtEditGreen"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textAutoComplete|textMultiLine|textCapSentences"
+        android:layout_marginLeft="30dp"
+        android:importantForAutofill="no"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lblGreen"
+        app:layout_constraintBottom_toTopOf="@+id/lblBlue"
+        />
+    <TextView
+        android:id="@+id/lblBlue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:labelFor="@+id/txtEditBlue"
+        android:text="Blue"
+        android:layout_marginLeft="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtEditGreen"
+        app:layout_constraintBottom_toTopOf="@+id/txtEditBlue"
+
+        />
+
+    <EditText
+        android:id="@+id/txtEditBlue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textAutoComplete|textMultiLine|textCapSentences"
+        android:layout_marginLeft="30dp"
+        android:importantForAutofill="no"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lblBlue"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
