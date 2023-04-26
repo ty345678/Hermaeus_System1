@@ -44,6 +44,10 @@ public abstract class LightDatabase extends RoomDatabase {
             public void OnCreate (@NonNull SupportSQLiteDatabase db){
                 super.onCreate(db);
                 for(int i=0;i<DefaultContent.NAME.length;i++){
+
+                    Log.d("databaseCreation", "database value entry: " +
+                            DefaultContent.NAME[i]+DefaultContent.RED[i]+DefaultContent.GREEN[i]+DefaultContent.BLUE[i]);
+
                     insert(new Light(0,DefaultContent.NAME[i],DefaultContent.RED[i],DefaultContent.GREEN[i],DefaultContent.BLUE[i],false));
 
                 }

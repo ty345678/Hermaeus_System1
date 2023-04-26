@@ -23,6 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
+import edu.psu.tmm6320.hermaeus_system.Light;
 import edu.psu.tmm6320.hermaeus_system.LightDatabase;
 import edu.psu.tmm6320.hermaeus_system.LightStatus;
 import edu.psu.tmm6320.hermaeus_system.LightViewModel;
@@ -158,7 +159,9 @@ public class LightsActivity extends AppCompatActivity {
             private final TextView greenView;
             private final TextView blueView;
             private final ImageView likedView;
-            private LightStatus light;
+
+            //private LightStatus light;
+            private Light light;
 
             // Note that this view holder will be used for different items -
             // The callbacks though will use the currently stored item
@@ -183,9 +186,10 @@ public class LightsActivity extends AppCompatActivity {
                 itemView.setOnClickListener(view -> displaySetup(light.id));
 
                 likedView.setOnClickListener(view -> {
-                    if(light.liked == null) light.liked = true;
-                    else if (light.liked) light.liked = false;
-                    else light.liked = false;
+                    //if(light.liked == null) light.liked = true;
+                    //else
+                    if (light.liked) light.liked = false;
+                    else light.liked = true;
 
                     //light.liked = !light.liked;
                     LightDatabase.update(light.id, light.liked);
@@ -194,7 +198,8 @@ public class LightsActivity extends AppCompatActivity {
         }
 
         private final LayoutInflater layoutInflater;
-        private List<LightStatus> lights; // Cached copy of lights
+       // private List<LightStatus> lights; // Cached copy of lights
+        private List<Light> lights; // Cached copy of lights
 
         LightListAdapter(Context context) {
             layoutInflater = LayoutInflater.from(context);
@@ -208,26 +213,30 @@ public class LightsActivity extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(@NonNull LightViewHolder holder, int position) {
-            Log.d("lights", "OnBindViewHolder");
+//            Log.d("lightsName", "OnBindViewHolder");
 
             if (lights != null) {
-                Log.d("lights", "Lights != Null");
+//                Log.d("lights", "Lights != Null");
 
 
 
-                LightStatus current = lights.get(position);
+                //LightStatus current = lights.get(position);
+                Light current = lights.get(position);
 
-                Log.d("lightsName", "Position:" +
-                        position);
-                Log.d("lightsName", "get Position:" +
-                        lights.get(position));
-                Log.d("lightsName", "getPosition NAMEEEEEE:" +
-                        lights.get(position).name);
-                Log.d("lightsName", "CURRENT:" +
-                        current);
-
-                Log.d("lightsName", "CURRENT: " +
-                        current.name);
+//                Log.d("lightsName", "Position:" +
+//                        position);
+//                Log.d("lightsName", "get Position:" +
+//                        lights.get(position));
+//                Log.d("lightsName", "getPosition NAMEEEEEE:" +
+//                        lights.get(position).name);
+//                Log.d("lightsName", "CURRENT:" +
+//                        current);
+//
+//                Log.d("lightsName", "CURRENT.name: " +
+//                        current.name);
+//
+//                Log.d("lightsName", "CURRENT.red toString: " +
+//                        Integer.toString(current.red));
 
                 holder.light = current;
 
@@ -238,12 +247,16 @@ public class LightsActivity extends AppCompatActivity {
 //                        current.heightFt, current.idealLevel, current.lowLevel, current.highLevel));
 //                holder.txtTemp.setText(String.format("Temperature %.1f C",current.tempC));
 //                holder.txtRiver.setText(current.river);
-                Log.d("lights", "About to set text redView...");
+//                Log.d("lights", "About to set text redView...");
 
-//                holder.redView.setText(current.red);
-//                holder.greenView.setText(current.green);
-//                holder.blueView.setText(current.blue);
-                Log.d("lights", "SET REDVIEW");
+                holder.redView.setText(Integer.toString(current.red));
+                holder.greenView.setText(Integer.toString(current.green));
+                holder.blueView.setText(Integer.toString(current.blue));
+                /////////////////////////////////////////////////////////////////
+                /////////////////////////////////////////////////////////////////
+                /////////////////////////////////////////////////////////////////
+                /////////////////////////////////////////////////////////////////
+//                Log.d("lights", "SET REDVIEW");
 
 
                 if (current.liked) {
@@ -253,7 +266,7 @@ public class LightsActivity extends AppCompatActivity {
                     holder.likedView.setImageResource(R.drawable.ic_thumb_down);
                 }
             } else {
-                Log.d("lightsName", "setting Null Values" );
+//                Log.d("lightsName", "setting Null Values" );
 
                 // Covers the case of data not being ready yet.
                 holder.nameView.setText("...intializing...");
@@ -263,12 +276,12 @@ public class LightsActivity extends AppCompatActivity {
 
                 holder.likedView.setImageResource(R.drawable.ic_thumb_down);
                 holder.likedView.setTag("N");
-                Log.d("lightsName", "set Null Values setted" );
+//                Log.d("lightsName", "set Null Values setted" );
 
             }
         }
 
-        void setLights(List<LightStatus> lights){
+        void setLights(List<Light> lights){
             this.lights = lights;
             Log.d("lightsName", "lights Name in setData:" + lights);
 

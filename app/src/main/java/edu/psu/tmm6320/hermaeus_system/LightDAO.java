@@ -13,11 +13,11 @@ import androidx.room.Update;
 public interface LightDAO {
 
     @Query("SELECT * FROM lights ORDER BY name")
-    LiveData<List<LightStatus>> getAll();
+    LiveData<List<Light>> getAll();
 
     @Query("SELECT * FROM lights WHERE liked = :onlyLiked " +
             "ORDER BY name COLLATE NOCASE, id")
-    LiveData<List<LightStatus>> getLiked(boolean onlyLiked);
+    LiveData<List<Light>> getLiked(boolean onlyLiked);
 
     @Query("SELECT * FROM lights WHERE id = :lightsId")
     Light getById(int lightsId);

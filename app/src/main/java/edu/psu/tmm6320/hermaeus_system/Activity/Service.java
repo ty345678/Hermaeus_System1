@@ -1,5 +1,4 @@
-package edu.psu.tmm6320.hermaeus_system;
-import android.app.Service;
+package edu.psu.tmm6320.hermaeus_system.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
@@ -7,7 +6,7 @@ import android.os.IBinder;
 import android.widget.Toast;
 
 
-public class service extends Service {
+public class Service extends android.app.Service {
     public Context context = this;
     public Handler handler = null;
     public static Runnable runnable = null;

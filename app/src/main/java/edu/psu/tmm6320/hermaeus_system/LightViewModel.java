@@ -8,8 +8,8 @@ import java.util.List;
 import androidx.lifecycle.AndroidViewModel;
 
 public class LightViewModel extends AndroidViewModel{
-   private LiveData<List<LightStatus>> lights;
-    //private LiveData<List<Light>> lights;
+   //private LiveData<List<LightStatus>> lights;
+    private LiveData<List<Light>> lights;
 
     public LightViewModel (Application application){
         super(application);
@@ -22,8 +22,8 @@ public class LightViewModel extends AndroidViewModel{
         else
             lights = LightDatabase.getDatabase(getApplication()).lightDAO().getAll();
     }
-    public LiveData<List<LightStatus>> getAllLights(){return lights;}
-    //public LiveData<List<Light>> getAllLights(){return lights;}
+    //public LiveData<List<LightStatus>> getAllLights(){return lights;}
+    public LiveData<List<Light>> getAllLights(){return lights;}
 
 
 

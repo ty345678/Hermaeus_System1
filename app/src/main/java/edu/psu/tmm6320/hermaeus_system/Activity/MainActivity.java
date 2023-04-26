@@ -4,20 +4,21 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
+import androidx.preference.PreferenceManager;
 
+import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.MediaController;
-import android.widget.VideoView;
 
 import com.longdo.mjpegviewer.MjpegView;
 
 import edu.psu.tmm6320.hermaeus_system.R;
-import edu.psu.tmm6320.hermaeus_system.service;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -36,17 +37,49 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        startService(new Intent(this, service.class));
+        setSupportActionBar(findViewById(R.id.toolbar));
+
+        startService(new Intent(this, Service.class));
 
 //
 //        Toolbar myToolbar = findViewById(R.id.toolbar);
-//        setSupportActionBar(myToolbar);
+
+        //static SharedPreferences PreferenceManager.getDefaultSharedPreferences(content);
+//        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+//        SharedPreferences.Editor editor = sharedPrefs.edit();
+//        editor.putInt("Backup_Camera_Ip",-1);
+//        editor.commit();
+
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+//        String test = sharedPref.getString("Backup_Camera_Ip", "");
+
+//        Log.d("streamMode", "BACKUPO CAMERA IP TETSST: "+test);
+
+        final String DEFAULT_VALUE = "0";
+//        SharedPreferences shared = getSharedPreferences("Backup_Camera_Ip", 0);
+//        String channel = shared.getString("Backup_Camera_Ip", "");
+//        Log.d("streamMode", "SHARED GET ALLL: "+shared.getAll().get("Backup_Camera_Ip"));
+
+//        long backupCameraIPValuesTest =
+        String backupCameraIPValue = sharedPref.getString("Backup_Camera_Ip",DEFAULT_VALUE);
+        String leftCameraIPValue = sharedPref.getString("Left_Camera_Ip",DEFAULT_VALUE);
+        String rightCameraIPValue = sharedPref.getString("Right_Camera_Ip",DEFAULT_VALUE);
+
+//        Log.d("streamMode", "cameraIPValue"+channel);
 
 
 
 
-        StartStream(findViewById(R.id.stream_Back),"http://192.168.0.150:8000/stream.mjpg" );
-        StartStream(findViewById(R.id.stream_RightMirror),"http://192.168.0.100" );
+        /////////////FINAL VALUES//////////////
+        StartStream(findViewById(R.id.stream_Back),"http://192.168.0."+backupCameraIPValue+":8000/stream.mjpg" );
+        //StartStream(findViewById(R.id.stream_RightMirror),"http://192.168.0."+rightCameraIPValue+":8000/stream.mjpg" );
+       // StartStream(findViewById(R.id.stream_LeftMirror),"http://192.168.0."+leftCameraIPValue+":8000/stream.mjpg" );
+
+
+
+
+
+//        StartStream(findViewById(R.id.stream_RightMirror),"http://192.168.0.100" );
         //StartStream(findViewById(R.id.stream_LeftMirror),"http://192.168.0.100" );
 
 
@@ -118,7 +151,7 @@ public class MainActivity extends AppCompatActivity {
 
         //update imageView
         //ConstraintLayout constraintLayout = findViewById(R.id.parentLayout_all3);
-        ConstraintLayout constraintLayout = findViewById(R.id.parentLayout_all3);
+        ConstraintLayout constraintLayout = findViewById(R.id.rootLayout);
 
         ConstraintSet constraintSet = new ConstraintSet();
         constraintSet.clone(constraintLayout);
@@ -139,6 +172,31 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.activity_main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_lights:
+                startActivity(new Intent(MainActivity.this, LightsActivity.class));
+                //updateDatabase();
+                return true;
+            case R.id.menu_settings:
+                //startActivity(new Intent(MainActivity.this, LightsActivity.class));
+                //updateDatabase();
+                return true;
+            case R.id.menu_preferences:
+                startActivity(new Intent(MainActivity.this, SettingsActivity.class));
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
 
 

@@ -4,9 +4,10 @@ public class LightStatus {
 
     public LightStatus(int id, String name,int red, int green, int blue, Boolean liked) {
         this.id = id;
-       this.red = red;
-       this.green = green;
-       this.blue = blue;
+        this.name = name;
+        this.red = red;
+        this.green = green;
+        this.blue = blue;
         this.liked = liked;
     }
     public int id;

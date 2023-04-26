@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory
+        android:key="camera_Ip_List_key"
+        android:id="@+id/camera_Ip_List_id"
+        android:title="@string/camera_Ip_List"
+        android:persistent="false"
+        app:fragment = "edu.psu.tmm6320.Camera_IP_Fragment"
+        >
+        <EditTextPreference
+            android:key="Backup_Camera_Ip"
+            android:title="@string/backup_camera_ip"
+            android:dialogTitle="@string/backup_camera_ip_address"
+            android:summary="Ip address of camera"
+            android:inputType="numberPassword"
+            android:defaultValue="150" />
+        <EditTextPreference
+            android:key="Left_Camera_Ip"
+            android:title="@string/left_camera_ip"
+            android:dialogTitle="@string/left_camera_ip_address"
+            android:summary="Ip address of camera"
+            android:inputType="numberPassword"
+            android:defaultValue="151" />
+        <EditTextPreference
+            android:key="Right_Camera_Ip"
+            android:title="@string/right_camera_ip"
+            android:dialogTitle="@string/right_camera_ip_address"
+            android:summary="Ip address of camera"
+            android:inputType="numberPassword"
+            android:defaultValue="152"
+            />
+
+
+<!--        <ListPreference-->
+<!--            android:key="button_voicemail_provider_key"-->
+<!--            android:title="@string/voicemail_provider"-->
+<!--         />-->
+<!--        &lt;!&ndash; opens another nested subscreen &ndash;&gt;-->
+<!--        <PreferenceScreen-->
+<!--            android:key="button_voicemail_setup_key"-->
+<!--            android:title="@string/voicemail_setup"-->
+<!--            android:persistent="false">-->
+
+<!--        </PreferenceScreen>-->
+
+    </PreferenceCategory>
+
+
+
+
+
+<!--    <CheckBoxPreference-->
+<!--        android:key="@string/pref_sync"-->
+<!--        android:title="@string/pref_sync"-->
+<!--        android:summary="@string/pref_sync_summ"-->
+<!--        android:defaultValue="true" />-->
+<!--    <ListPreference-->
+<!--        android:dependency="@string/pref_sync"-->
+<!--        android:key="@string/pref_syncConnectionType"-->
+<!--        android:title="@string/pref_syncConnectionType"-->
+<!--        android:dialogTitle="@string/pref_syncConnectionType"-->
+<!--        android:entries="@array/pref_syncConnectionTypes_entries"-->
+<!--        android:entryValues="@array/pref_syncConnectionTypes_values"-->
+<!--        android:defaultValue="@string/pref_syncConnectionTypes_default"/>-->
+<!--    <EditTextPreference-->
+<!--        android:key="@string/pref_quote_key"-->
+<!--        android:title="@string/pref_quote_title"-->
+<!--        android:summary="@string/pref_quote_summary"-->
+<!--        android:defaultValue="@string/pref_quote_default" />-->
+</PreferenceScreen>

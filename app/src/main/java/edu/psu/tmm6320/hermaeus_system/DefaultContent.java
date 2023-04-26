@@ -1,7 +1,7 @@
 package edu.psu.tmm6320.hermaeus_system;
 
 public class DefaultContent {
-    final static String[] NAME = {"red","green",
+    public static String[] NAME = {"red","green",
             "blue",
             "white",
             "purple",
@@ -10,7 +10,7 @@ public class DefaultContent {
 
     };
 
-    final static Integer[] RED = {
+    public static Integer[] RED = {
             255,
             0,
             0,
@@ -20,7 +20,7 @@ public class DefaultContent {
             255,
     };
 
-    final static Integer[] GREEN = {
+    public static Integer[] GREEN = {
             0,
             255,
             0,
@@ -29,7 +29,7 @@ public class DefaultContent {
             0,
             20,
         };
-    final static Integer[] BLUE = {
+    public static Integer[] BLUE = {
             0,
             0,
             255,

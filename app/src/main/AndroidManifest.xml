@@ -38,11 +38,16 @@
         android:screenOrientation="landscape">
         </activity>
         <activity
+        android:name=".Activity.SettingsActivity"
+        android:exported="true"
+        android:screenOrientation="landscape">
+        </activity>
+        <activity
             android:name=".Activity.AddActivity"
             android:exported="true"
             android:screenOrientation="landscape">
         </activity>
-        <service android:name=".service" />
+        <service android:name=".Activity.Service" />
     </application>
 
 </manifest>

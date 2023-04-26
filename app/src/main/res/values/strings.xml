@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">CS Jokes</string>
+    <string name="app_name">List of Lights</string>
     <string name="joke">Joke</string>
     <string name="menu_add">Add</string>
     <string name="menu_thumb_up">Display Liked Jokes</string>
@@ -10,6 +10,12 @@
     <string name="menu_delete">Delete</string>
     <string name="menu_cancel">Cancel</string>
 
+    <string name="menu_menu">Menu</string>
+    <string name="menu_lights">Lights</string>
+    <string name="menu_preferences">Preferences</string>
+
+
+
     <string name="title">Title</string>
     <string name="setup">Set up</string>
     <string name="punchline">Punchline</string>
@@ -19,5 +25,33 @@
 
     <string name="pref_filter">Filter jokes</string>
     <string name="pref_filter_summary">Show only liked jokes on app start up</string>
+
+    <string name= "pref_sync">Preferences</string>
+    <string name= "pref_sync_summ">Background Color Change</string>
+    <string name= "pref_syncConnectionType">lowerConnetuin thjngni</string>
+<!--    <string name= "pref_syncConnectionTypes_entries">Preferences CONNECTION TYPE ENTRIES?????</string>-->
+<!--    <string name= "pref_syncConnectionTypes_values">Preferences CONNECTION TYPE VALUES?????</string>-->
+    <string name= "pref_syncConnectionTypes_default">Preferences CONNECTION TYPE defaults?????</string>
+    <string name= "pref_quote_key">Preferences quote key?????</string>
+    <string name= "pref_quote_title">Preferences quote title?????</string>
+    <string name= "pref_quote_summary">Preferences quote summary?????</string>
+    <string name= "pref_quote_default">Preferences quote default?????</string>
+
+    <string name= "pref_sms_storage_title">Preferences sms Storage Title?????</string>
+    <string name= "pref_key_auto_delete">Preferences pref_key_auto_delete?????</string>
+    <string name= "pref_summary_auto_delete">Preferences pref_summary_auto_delete?????</string>
+    <string name= "pref_title_auto_delete">Preferences pref_title_auto_delete?????</string>
+
+    <string name= "camera_Ip_List">Camera Addresses</string>
+    <string name= "backup_camera_ip">Backup Camera IP</string>
+    <string name= "left_camera_ip">Left Camera IP</string>
+    <string name= "right_camera_ip">Right Camera IP</string>
+    <string name= "backup_camera_ip_address">192.168.0.</string>
+    <string name= "left_camera_ip_address">192.168.0.</string>
+    <string name= "right_camera_ip_address">192.168.0.</string>
+
+    <string name= "voicemail_provider">Preferences voicemail_provider?????</string>
+    <string name= "voicemail_setup">Preferences voicemail_setup?????</string>
+
 
 </resources>
