@@ -4,7 +4,7 @@ plugins {
 
 android {
     namespace 'edu.psu.tmm6320.hermaeus_system'
-    compileSdk 33
+    compileSdkVersion 33
 
     defaultConfig {
         applicationId "edu.psu.tmm6320.hermaeus_system"

@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:labelFor="@+id/txtEditTitle"
-        android:text="Name of Light Color"
+        android:text="Camera Name"
         android:importantForAutofill="no"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/my_toolbar"
@@ -48,7 +48,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:labelFor="@+id/txtEditRed"
-        android:text="Red"
+        android:text="IP Address: 192.168.0. ...   "
         android:layout_marginLeft="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtEditName"
@@ -61,57 +61,12 @@
         android:layout_height="wrap_content"
         android:inputType="numberPassword"
         android:layout_marginLeft="30dp"
+        android:layout_marginBottom="200dp"
         android:importantForAutofill="no"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lblRed"
-        app:layout_constraintBottom_toTopOf="@+id/lblGreen"
-        />
-    <TextView
-        android:id="@+id/lblGreen"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:labelFor="@+id/txtEditGreen"
-        android:text="Green"
-        android:layout_marginLeft="20dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtEditRed"
-        app:layout_constraintBottom_toTopOf="@+id/txtEditGreen"
-        />
-
-    <EditText
-        android:id="@+id/txtEditGreen"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="numberPassword"
-        android:layout_marginLeft="30dp"
-        android:importantForAutofill="no"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lblGreen"
-        app:layout_constraintBottom_toTopOf="@+id/lblBlue"
-        />
-    <TextView
-        android:id="@+id/lblBlue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:labelFor="@+id/txtEditBlue"
-        android:text="Blue"
-        android:layout_marginLeft="20dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtEditGreen"
-        app:layout_constraintBottom_toTopOf="@+id/txtEditBlue"
-
-        />
-
-    <EditText
-        android:id="@+id/txtEditBlue"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="numberPassword"
-        android:layout_marginLeft="30dp"
-        android:importantForAutofill="no"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lblBlue"
         app:layout_constraintBottom_toBottomOf="parent"
         />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

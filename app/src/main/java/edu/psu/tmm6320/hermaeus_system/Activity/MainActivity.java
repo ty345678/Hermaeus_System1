@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.preference.PreferenceManager;
 
 import android.content.Context;
@@ -18,20 +20,42 @@ import android.widget.Button;
 
 import com.longdo.mjpegviewer.MjpegView;
 
+import java.util.List;
+
 import edu.psu.tmm6320.hermaeus_system.Camera;
+import edu.psu.tmm6320.hermaeus_system.CameraDatabase;
+import edu.psu.tmm6320.hermaeus_system.CameraStatus;
+import edu.psu.tmm6320.hermaeus_system.CameraViewModel;
 import edu.psu.tmm6320.hermaeus_system.R;
+//import edu.psu.tmm6320.hermaeus_system.cameraListAdapter;
 
 public class MainActivity extends AppCompatActivity {
 
 
 
     //MjpegView viewer;
+    //TODO comment out and repalce with stream objects
+    MjpegView viewerRightMirror;
+    MjpegView viewerLeftMirror;
+    MjpegView viewerBackup;
+
+
 
     String VideoURL = "http:192.168.0.100";
 //    VideoView videoview;
     Camera cameraRightMirror;
     Camera cameraLeftMirror;
     Camera cameraBackup;
+
+
+    //todo get from camera database
+    public int backupCameraIPValue = 100; //////remove
+
+
+//    public int backupCameraIPValue = 150;
+    public int rightCameraIPValue = 150;
+    public int leftCameraIPValue = 152;
+
     //camera.createViewer? -- get ip/etc from database;
     //camera.startSteam--onBackgroundThread
     //callback to update iamge on forground
@@ -41,8 +65,21 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+    //create mjpeg cameras x3
+    //      --get ip address from db? -- start streams on that callback?
+    //create all 3 raspi camera streams
+    //setup esp32 (shed camera? - no use the bigger ones we have) for bluetooth
+            //shouldnt be THAT hard?? lol
+    //
+
+    //in code --
+    //have all 3 streams up and running
+    //buttons display different stream types
+    //      changed to bluetooth external buttons
+    //
 
 
+//    public CameraViewModel cameraViewModel;
 
 
     @Override
@@ -64,6 +101,45 @@ public class MainActivity extends AppCompatActivity {
             //2 start all streams w new inputs
             //
 
+        //todo add save instance state to keep state of which camera layout is displayed
+
+//
+//        camerasActivity.cameraListAdapter adapter = new camerasActivity.cameraListAdapter(this);
+//
+//        cameraViewModel.getAllcameras();
+
+//        CameraDatabase.cameraListener {
+//            void oncameraReturned(Camera camera);
+//        }
+
+
+
+
+//        CameraDatabase.cameraListener cameraListener = null;
+////        cameraListener.oncameraReturned();
+//        cameraListener.oncameraReturned();
+
+        //TODO comment out and replace with stream
+
+        viewerLeftMirror = findViewById(R.id.stream_LeftMirror_Driving);
+        viewerRightMirror = findViewById(R.id.stream_RightMirror_Driving);
+        viewerBackup = findViewById(R.id.stream_Back_Driving);
+
+
+        //GetCameraIP();
+
+        StartStream(viewerLeftMirror,"http://192.168.0.100" );
+
+        //StartStream(viewerLeftMirror,leftCameraIPValue );
+        StartStream(viewerRightMirror,rightCameraIPValue );
+        StartStream(viewerBackup,backupCameraIPValue );
+
+
+
+
+
+
+
         //Camera temp = new Camera();
         //
 
@@ -77,8 +153,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
-        StartAllStreams();
+        //StartAllStreams();
 //
 //        Toolbar myToolbar = findViewById(R.id.toolbar);
 
@@ -153,6 +228,112 @@ public class MainActivity extends AppCompatActivity {
 //        }
 
     }
+
+    private List<CameraStatus> cameras; // Cached copy of cameras
+    void setcameras(List<CameraStatus> cameras){
+        Log.d("penis", "setCameras" );
+        Log.d("pooper", "setCameras function called" );
+
+        this.cameras = cameras;
+        for(int i =0; i<cameras.size();i++) {
+            Log.d("camerasName", "cameras Name in setCameras:" + cameras.get(i).name);
+        }
+
+        //notifyDataSetChanged();
+    }
+    private void GetCameraIP() {
+        CameraViewModel cameraViewModel;
+
+        //Intent inte =  new Intent(MainActivity.this, camerasActivity.class);
+        //this.startActivity(inte);
+        Log.d("pooper","FUCKING CLASS STARTED BUT WE STIULL GIOT TO THIS POINT");
+        camerasActivity temp = new camerasActivity();
+        //cameraListAdapter temp = new cameraListAdapter();
+//        temp.onCreate(onSaveInstanceState(b));
+        //MenuItem item;
+        //temp.onOptionsItemSelected(item);
+        Log.d("pooper","cameraActivity created");
+
+        camerasActivity.cameraListAdapter test = new camerasActivity().cameraListAdapter;
+        Log.d("pooper","cameraActivity.listAdapter");
+
+        camerasActivity.cameraListAdapter adapter = new camerasActivity().cameraListAdapter;
+        cameraViewModel = new ViewModelProvider(this).get(CameraViewModel.class);
+        Log.d("pooper","cameraviewModel");
+
+        cameraViewModel.getAllcameras().observe(this, new camerasActivity().cameraListAdapter::setcameras);
+        cameraViewModel.getAllcameras().observe(this, test::setcameras);
+        //cameraViewModel.getAllcameras().observe(this, setcameras());
+        Log.d("pooper","cameraViewModel.getALlCameras");
+
+        LiveData<List<CameraStatus>> cameras;
+        Log.d("pooper","camerasList Created");
+
+        cameras = CameraDatabase.getDatabase(getApplication()).cameraDAO().getAll();
+        Log.d("pooper","camera getall()");
+        Log.d("pooper","cameras.getValue??? "+cameras.getValue());
+        Log.d("pooper","cameras.getValue.name: "+cameras.getValue().get(0).name);
+
+
+        //temp.;
+        //test.setcameras();
+//
+//        Log.d("pooper","getCAMERIP START");
+//
+//        //CameraDatabase temp = CameraDatabase.getDatabase(null);
+//        Log.d("pooper","created cameraLivedata");
+//
+//
+////        cameraViewModel
+//        Log.d("pooper","created adapter");
+//
+//        camerasActivity.cameraListAdapter adapter = null;//= new camerasActivity.cameraListAdapter(this);
+//        //adapter = new camerasActivity.cameraListAdapter(this);
+//        cameraViewModel.getAllcameras();
+//
+//        adapter.setcameras((List<CameraStatus>) cameraViewModel.getAllcameras());
+//        Log.d("pooper","adapter setcamera");
+//
+//        Log.d("pooper", "get camera count: "+ adapter.getItemCount());
+//        //CameraListAdapter temp
+//
+//        cameras = CameraDatabase.getDatabase(getApplication()).cameraDAO().getAll();
+//        Log.d("pooper","camera getall()");
+//        Log.d("pooper","cameras.mname?"+cameras.getValue());
+//
+//
+//        for(int i=0; i<cameras.getValue().size();i++) {
+//            Log.d("pooper","CAMERAS getVALUE NAME 0"+cameras.getValue().get(i).name);
+//
+//        }
+//        for(int i=0; i<3;i++){
+//            CameraDatabase.getcamera(i, camera -> {
+//                MjpegView viewer = null;
+//                switch (camera.name){
+//                    case "Backup":
+//                        viewer = viewerBackup;
+//                        break;
+//                    case "Left Mirror":
+//                        viewer = viewerLeftMirror;
+//                        break;
+//                    case "Right Mirror":
+//                        viewer = viewerRightMirror;
+//                        break;
+////                    default:
+//                }
+//
+//
+//                StartStream(viewer,"http://192.168.0."+camera.ipAddress+":8000/stream.mjpg");
+////                camera.name;
+////                camera.ipAddress;
+////                camera.id;
+//
+//
+//            });
+//        }
+
+    }
+
 //    private int [] getStreams(){
 //
 //        //return []
@@ -211,13 +392,38 @@ public class MainActivity extends AppCompatActivity {
 
     public void StartStream(MjpegView viewer, String url) {
 
-        viewer.setMode(MjpegView.MODE_FIT_WIDTH);
+        viewer.setMode(MjpegView.MODE_FIT_HEIGHT);
         //viewer.setAdjustHeight(true);
         //viewer.setSupportPinchZoomAndPan(true);
         //viewer.setUrl("https://bma-itic1.iticfoundation.org/mjpeg2.php?camid=test");
 //        viewer.setUrl("http://192.168.0.100");
         viewer.setUrl(url);
        // viewer.setMode(MjpegView.MODE_BEST_FIT);
+
+        viewer.startStream();
+       // viewer.
+        //Log.d("streamMode", "starting stream+ stream time:"+viewer.getDrawingTime());
+    }
+    public void StartStream(MjpegView viewer, int IP) {
+        String url = "http://192.168.0."+IP+":8000/stream.mjpg";
+
+        if(IP==100){
+            url = "http://192.168.0."+IP;
+        }
+
+
+
+
+//        viewer.setMode(MjpegView.MODE_FIT_WIDTH);
+        viewer.setMode(MjpegView.MODE_FIT_HEIGHT);
+        //viewer.setAdjustHeight(true);
+        //viewer.setSupportPinchZoomAndPan(true);
+        //viewer.setUrl("https://bma-itic1.iticfoundation.org/mjpeg2.php?camid=test");
+//        viewer.setUrl("http://192.168.0.100");
+        viewer.setUrl(url);
+        viewer.setAlpha(1);
+
+        // viewer.setMode(MjpegView.MODE_BEST_FIT);
 
         viewer.startStream();
        // viewer.
@@ -285,35 +491,73 @@ public class MainActivity extends AppCompatActivity {
         EndAllStreams();
         //start new stream w backup_reverse size image
         Log.d("Reverse", "Starting Streams w new Params");
+//        findViewById(R.id.stream_Back_Driving)
 
-        StartStream(cameraBackup, R.id.stream_Back_Reverse);
-        StartStream(cameraLeftMirror, R.id.stream_LeftMirror_Reverse);
-        StartStream(cameraRightMirror, R.id.stream_RightMirror_Reverse);
+        viewerRightMirror = findViewById(R.id.stream_RightMirror_Reverse);
+        viewerLeftMirror =findViewById(R.id.stream_LeftMirror_Reverse);
+        viewerBackup =findViewById(R.id.stream_Back_Reverse);
+
+        StartStream(viewerBackup,backupCameraIPValue);
+        StartStream(viewerLeftMirror,leftCameraIPValue);
+        StartStream(viewerRightMirror,rightCameraIPValue);
+        Log.d("Reverse", "Started Streams");
+
+//        StartStream( R.id.stream_LeftMirror_Reverse);
+//        StartStream( R.id.stream_RightMirror_Reverse);
 
     }
     public void LeftTurn(View view){
         EndAllStreams();
         //start new stream w backup_reverse size image
+//        viewerRightMirror = findViewById(R.id.stream_RightMirror_LeftTurn);
+        viewerLeftMirror =findViewById(R.id.stream_LeftMirror_LeftTurn);
+        viewerBackup =findViewById(R.id.stream_Back_LeftTurn);
 
-        StartStream(cameraBackup, R.id.stream_Back_LeftTurn);
-        StartStream(cameraLeftMirror, R.id.stream_LeftMirror_LeftTurn);
+        StartStream(viewerBackup,backupCameraIPValue);
+        StartStream(viewerLeftMirror,leftCameraIPValue);
+        StartStream(viewerRightMirror,rightCameraIPValue);
+
+//        StartStream(findViewById(R.id.stream_Back_LeftTurn),backupCameraIPValue);
+//        StartStream(findViewById(R.id.stream_LeftMirror_LeftTurn),leftCameraIPValue);
+////        StartStream(findViewById(R.id.stream_RightMirror_LeftTurn),rightCameraIPValue);
+
+//        StartStream(R.id.stream_Back_LeftTurn);
+//        StartStream(R.id.stream_LeftMirror_LeftTurn);
         //StartStream(cameraRightMirror, R.id.stream_RightMirror_LeftTurn);
     }
     public void RightTurn(View view){
         EndAllStreams();
         //start new stream w backup_reverse size image
+        viewerRightMirror = findViewById(R.id.stream_RightMirror_RightTurn);
+//        viewerLeftMirror =findViewById(R.id.stream_LeftMirror_RightTurn);
+        viewerBackup =findViewById(R.id.stream_Back_RightTurn);
 
-        StartStream(cameraBackup, R.id.stream_Back_RightTurn);
-        //StartStream(cameraLeftMirror, R.id.stream_LeftMirror_RightTurn);
-        StartStream(cameraRightMirror, R.id.stream_RightMirror_RightTurn);
+        StartStream(viewerBackup,backupCameraIPValue);
+        StartStream(viewerLeftMirror,leftCameraIPValue);
+        StartStream(viewerRightMirror,rightCameraIPValue);
+
+//        StartStream(findViewById(R.id.stream_Back_LeftTurn),backupCameraIPValue);
+//        StartStream(findViewById(R.id.stream_LeftMirror_LeftTurn),leftCameraIPValue);
+//        StartStream(findViewById(R.id.stream_RightMirror_LeftTurn),rightCameraIPValue);
+
+//        StartStream(cameraBackup, R.id.stream_Back_RightTurn);
+//        //StartStream(cameraLeftMirror, R.id.stream_LeftMirror_RightTurn);
+//        StartStream(cameraRightMirror, R.id.stream_RightMirror_RightTurn);
     }
     public void Driving(View view){
         EndAllStreams();
         //start new stream w backup_reverse size image
+        viewerRightMirror = findViewById(R.id.stream_RightMirror_Driving);
+        viewerLeftMirror =findViewById(R.id.stream_LeftMirror_Driving);
+        viewerBackup =findViewById(R.id.stream_Back_Driving);
 
-        StartStream(cameraBackup, R.id.stream_Back_Driving);
-        StartStream(cameraLeftMirror, R.id.stream_LeftMirror_Driving);
-        StartStream(cameraRightMirror, R.id.stream_RightMirror_Driving);
+        StartStream(viewerBackup,backupCameraIPValue);
+        StartStream(viewerLeftMirror,leftCameraIPValue);
+        StartStream(viewerRightMirror,rightCameraIPValue);
+//
+//        StartStream(cameraBackup, R.id.stream_Back_Driving);
+//        StartStream(cameraLeftMirror, R.id.stream_LeftMirror_Driving);
+//        StartStream(cameraRightMirror, R.id.stream_RightMirror_Driving);
     }
 
 
@@ -329,13 +573,41 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void EndAllStreams(){
+//        viewerRightMirror.stopStream();
+//        viewerLeftMirror.stopStream();
+//        viewerBackup.stopStream();
+        EndStream(viewerRightMirror);
+        EndStream(viewerLeftMirror);
+        EndStream(viewerBackup);
+
+//        viewer.stopStream();
+//        //viewer.clearAnimation();
+//        //viewer.setAlpha(0);
+//        viewer.setBitmap(null);
+//        viewer.setMode(MjpegView.MODE_BEST_FIT);
+
             //get all 3 cameras;
 //        cameraRightMirror.EndStream();
 //        cameraLeftMirror.EndStream();
 //        cameraBackup.EndStream();
 
     }
-
+    public void EndStream(MjpegView viewer){
+        viewer.stopStream();
+        WipeStreams(viewer);
+    }
+    public void WipeStreams(MjpegView viewer){
+        viewer.clearAnimation();
+        viewer.setAlpha(0);
+        viewer.setBitmap(null);
+        //viewer.setMode(MjpegView.MODE_BEST_FIT);
+    }
+    public void RecoverStream(MjpegView viewer){
+        //viewer.clearAnimation();
+        viewer.setAlpha(1);
+        //viewer.setBitmap(null);
+        //viewer.setMode(MjpegView.MODE_BEST_FIT);
+    }
 
 
     @Override

@@ -13,8 +13,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:focusable="false"
+        android:gravity="left"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/txtRed"
         app:layout_constraintEnd_toStartOf="@+id/txtRed"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -23,29 +23,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:focusable="false"
+        android:gravity="left"
         app:layout_constraintLeft_toRightOf="@id/txtName"
-        app:layout_constraintEnd_toStartOf="@+id/txtGreen"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/txtName" />
-    <TextView
-        android:id="@+id/txtGreen"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:focusable="false"
-        app:layout_constraintLeft_toRightOf="@id/txtRed"
-        app:layout_constraintEnd_toStartOf="@+id/txtBlue"
-
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/txtName" />
-    <TextView
-        android:id="@+id/txtBlue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:focusable="false"
-        app:layout_constraintLeft_toRightOf="@id/txtGreen"
         app:layout_constraintEnd_toStartOf="@+id/imgLiked"
+        android:layout_marginRight="150dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/txtName" />
+
     <ImageView
         android:id="@+id/imgLiked"
         android:layout_width="wrap_content"

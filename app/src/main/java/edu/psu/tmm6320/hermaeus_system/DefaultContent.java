@@ -3,8 +3,8 @@ package edu.psu.tmm6320.hermaeus_system;
 public class DefaultContent {
     final static String[] NAME={
             "Backup",
-            "Left",
-            "Right"
+            "Left Mirror",
+            "Right Mirror"
 
     };
     final static int[] IPADDRESS={
@@ -12,7 +12,12 @@ public class DefaultContent {
             151,
             152
     };
+    final static String[] DefaultViewer={
+           "@+id/stream_Back_Driving",
+           "@+id/stream_LeftMirror_Driving",
+           "@+id/stream_RightMirror_Driving"
 
+};
 
 //    public static String[] NAME = {"red","green",
 //            "blue",

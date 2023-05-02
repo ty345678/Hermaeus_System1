@@ -28,11 +28,12 @@ import edu.psu.tmm6320.hermaeus_system.CameraDatabase;
 import edu.psu.tmm6320.hermaeus_system.CameraStatus;
 import edu.psu.tmm6320.hermaeus_system.CameraViewModel;
 import edu.psu.tmm6320.hermaeus_system.R;
+//import edu.psu.tmm6320.hermaeus_system.cameraListAdapter;
 
 public class camerasActivity extends AppCompatActivity {
 
 
-
+    public camerasActivity.cameraListAdapter cameraListAdapter;
     private boolean filtered = false;  // Are results filtered by likess
     private CameraViewModel cameraViewModel;
 
@@ -43,8 +44,18 @@ public class camerasActivity extends AppCompatActivity {
         if (savedInstanceState != null) {
             filtered = savedInstanceState.getBoolean("filtered");
         }
+
+
+
+
+
+
+
+
+
         Log.d("cameras", "Starting cameraS");
         Log.d("penis", "ONCREATE STARTED" );
+        Log.d("pooper", "CAMERA ACTIVITY ONCREATE STARTED" );
 
         // Set the action bar
         setSupportActionBar(findViewById(R.id.toolbar));
@@ -52,13 +63,15 @@ public class camerasActivity extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.lstLights);
         cameraListAdapter adapter = new cameraListAdapter(this);
         recyclerView.setAdapter(adapter);
-        //recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
         Log.d("cameras", "RECYCLER START");
 
         cameraViewModel = new ViewModelProvider(this).get(CameraViewModel.class);
 
         cameraViewModel.getAllcameras().observe(this, adapter::setcameras);
         Log.d("camerasName", "cameraViewModel onCreate:" + cameraViewModel.getAllcameras());
+        //Log.d("camerasName", "cameraViewModel onCreate.getvalue.get(0).name:" + cameraViewModel.getAllcameras().getValue().get(0).name);
+        //Log.d("camerasName", "cameraViewModel onCreate.getvalue.get(0).name:" + cameraViewModel.getAllcameras().getValue().get(0).name);
         Log.d("penis", "ONCREATE FINISHED" );
 
     }
@@ -161,11 +174,26 @@ public class camerasActivity extends AppCompatActivity {
     // Notes: This can be an outer class or a static nested class. We will make an inner class
     // since it is only used in the MainActivity _and_ we would like to simplify communication
     // with the activity
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     public class cameraListAdapter extends RecyclerView.Adapter<cameraListAdapter.cameraViewHolder> {
         // If the cameraListAdapter were an outer class, the cameraViewHolder could be
         // a static class.  We want to be able to get access to the MainActivity instance,
         // so we want it to be an inner class
-        class cameraViewHolder extends RecyclerView.ViewHolder {
+        public class cameraViewHolder extends RecyclerView.ViewHolder {
             private final TextView nameView;
             private final TextView ipAddress;
 //            private final TextView redView;
@@ -236,7 +264,7 @@ public class camerasActivity extends AppCompatActivity {
             Log.d("penis", "onBindVIewHolder start!!!!!!!!!!!!!!" );
 
             if (cameras != null) {
-                Log.d("penis", "onBindVIewHOlder cameras!=null start" );
+                //Log.d("penis", "onBindVIewHOlder cameras!=null start" );
 
 //                Log.d("cameras", "cameras != Null");
 
@@ -262,7 +290,7 @@ public class camerasActivity extends AppCompatActivity {
 
                 holder.camera = current;
 
-                holder.nameView.setText(current.name);
+                holder.nameView.setText("Camera: "+current.name);
                 //holder.redView.setText(current.red);
 
 //                holder.txtLevel.setText(String.format("Current Level: %.2f    Ideal Level: %.1f\nRange: %.1f-%.1f ",
@@ -272,7 +300,7 @@ public class camerasActivity extends AppCompatActivity {
 //                Log.d("cameras", "About to set text redView...");
 
 
-                holder.ipAddress.setText(Integer.toString(current.ipAddress));
+                holder.ipAddress.setText("IP Address: 192.168.0."+Integer.toString(current.ipAddress));
 //                holder.redView.setText(Integer.toString(current.red));
 //                holder.greenView.setText(Integer.toString(current.green));
 //                holder.blueView.setText(Integer.toString(current.blue));
@@ -308,6 +336,7 @@ public class camerasActivity extends AppCompatActivity {
 
         void setcameras(List<CameraStatus> cameras){
             Log.d("penis", "setCameras" );
+            Log.d("pooper", "setCameras function called" );
 
             this.cameras = cameras;
             for(int i =0; i<cameras.size();i++) {
@@ -329,6 +358,28 @@ public class camerasActivity extends AppCompatActivity {
 
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -341,11 +392,11 @@ public class camerasActivity extends AppCompatActivity {
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             camera_id = getArguments().getInt("camera_id");
             final String title = getArguments().getString("name");
-            final Integer red = getArguments().getInt("red");
-            final Integer green = getArguments().getInt("green");
-            final Integer blue = getArguments().getInt("blue");
-            builder.setTitle(title)
-                    .setMessage("Red: "+red+"\nGreen: "+green+"\nBlue: "+blue)
+            final Integer ipAddress = getArguments().getInt("ipAddress");
+//            final Integer green = getArguments().getInt("green");
+//            final Integer blue = getArguments().getInt("blue");
+            builder.setTitle("Camera: "+title)
+                    .setMessage("IP Address: 192.168.0."+ipAddress)
                     .setNeutralButton("Enable",(dialog, id) -> ((camerasActivity) getActivity()).EnablecameraColor(camera_id))
                     .setPositiveButton("Liked",(dialog, id) -> {
                         CameraDatabase.getcamera(camera_id, camera -> {
@@ -464,4 +515,30 @@ public class camerasActivity extends AppCompatActivity {
 //            else return 0;
 //        }
 //    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
