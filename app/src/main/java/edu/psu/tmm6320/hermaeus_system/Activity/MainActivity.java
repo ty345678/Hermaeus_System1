@@ -18,16 +18,28 @@ import android.widget.Button;
 
 import com.longdo.mjpegviewer.MjpegView;
 
+import edu.psu.tmm6320.hermaeus_system.Camera;
 import edu.psu.tmm6320.hermaeus_system.R;
 
 public class MainActivity extends AppCompatActivity {
 
 
 
-
+    //MjpegView viewer;
 
     String VideoURL = "http:192.168.0.100";
 //    VideoView videoview;
+    Camera cameraRightMirror;
+    Camera cameraLeftMirror;
+    Camera cameraBackup;
+    //camera.createViewer? -- get ip/etc from database;
+    //camera.startSteam--onBackgroundThread
+    //callback to update iamge on forground
+    //rightmirror.stopStream();
+    //camera.startStream(r.id.RightMirror_rightTurn);
+
+
+
 
 
 
@@ -41,6 +53,32 @@ public class MainActivity extends AppCompatActivity {
 
         startService(new Intent(this, Service.class));
 
+
+        //1 create cameras
+            //done via database -- have to wait for callback/thread to create
+        //2 start streams
+            //w inital inputs
+        //3 --callback update image
+        //4 wait for button/bluetooth call to change views
+        //  4.1 stop all streams
+            //2 start all streams w new inputs
+            //
+
+        //Camera temp = new Camera();
+        //
+
+//        this.cameraBackup = new Camera();
+//        this.cameraLeftMirror = new Camera();
+//        this.cameraRightMirror = new Camera();
+
+
+
+
+
+
+
+
+        StartAllStreams();
 //
 //        Toolbar myToolbar = findViewById(R.id.toolbar);
 
@@ -50,20 +88,20 @@ public class MainActivity extends AppCompatActivity {
 //        editor.putInt("Backup_Camera_Ip",-1);
 //        editor.commit();
 
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+//        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
 //        String test = sharedPref.getString("Backup_Camera_Ip", "");
 
 //        Log.d("streamMode", "BACKUPO CAMERA IP TETSST: "+test);
 
-        final String DEFAULT_VALUE = "0";
+//        final String DEFAULT_VALUE = "0";
 //        SharedPreferences shared = getSharedPreferences("Backup_Camera_Ip", 0);
 //        String channel = shared.getString("Backup_Camera_Ip", "");
 //        Log.d("streamMode", "SHARED GET ALLL: "+shared.getAll().get("Backup_Camera_Ip"));
 
 //        long backupCameraIPValuesTest =
-        String backupCameraIPValue = sharedPref.getString("Backup_Camera_Ip",DEFAULT_VALUE);
-        String leftCameraIPValue = sharedPref.getString("Left_Camera_Ip",DEFAULT_VALUE);
-        String rightCameraIPValue = sharedPref.getString("Right_Camera_Ip",DEFAULT_VALUE);
+//        String backupCameraIPValue = sharedPref.getString("Backup_Camera_Ip",DEFAULT_VALUE);
+//        String leftCameraIPValue = sharedPref.getString("Left_Camera_Ip",DEFAULT_VALUE);
+//        String rightCameraIPValue = sharedPref.getString("Right_Camera_Ip",DEFAULT_VALUE);
 
 //        Log.d("streamMode", "cameraIPValue"+channel);
 
@@ -71,12 +109,13 @@ public class MainActivity extends AppCompatActivity {
 
 
         /////////////FINAL VALUES//////////////
-        StartStream(findViewById(R.id.stream_Back),"http://192.168.0."+backupCameraIPValue+":8000/stream.mjpg" );
+//        StartStream(findViewById(R.id.stream_Back),"http://192.168.0."+backupCameraIPValue+":8000/stream.mjpg" );
         //StartStream(findViewById(R.id.stream_RightMirror),"http://192.168.0."+rightCameraIPValue+":8000/stream.mjpg" );
        // StartStream(findViewById(R.id.stream_LeftMirror),"http://192.168.0."+leftCameraIPValue+":8000/stream.mjpg" );
 
-
-
+//
+//        Stream seeee = new Stream();
+//        seeee.setUrl("hi");
 
 
 //        StartStream(findViewById(R.id.stream_RightMirror),"http://192.168.0.100" );
@@ -84,14 +123,14 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        Button btn = (Button)findViewById(R.id.button4);
-
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, LightsActivity.class));
-            }
-        });
+//        Button btn = (Button)findViewById(R.id.button4);
+//
+//        btn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(new Intent(MainActivity.this, camerasActivity.class));
+//            }
+//        });
 
 
 
@@ -114,6 +153,61 @@ public class MainActivity extends AppCompatActivity {
 //        }
 
     }
+//    private int [] getStreams(){
+//
+//        //return []
+//        return null;
+//    }
+
+
+    private void StartAllStreams() {
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+
+
+        final String DEFAULT_VALUE = "0";
+        String backupCameraIPValue = sharedPref.getString("Backup_Camera_Ip",DEFAULT_VALUE);
+        String leftCameraIPValue = sharedPref.getString("Left_Camera_Ip",DEFAULT_VALUE);
+        String rightCameraIPValue = sharedPref.getString("Right_Camera_Ip",DEFAULT_VALUE);
+
+
+
+
+
+        /////////////FINAL VALUES//////////////
+        /////////////FINAL VALUES//////////////
+        /////////////FINAL VALUES//////////////
+        /////////////FINAL VALUES//////////////
+        /////////////FINAL VALUES//////////////
+        /////////////FINAL VALUES//////////////
+        /////////////FINAL VALUES//////////////
+        /////////////FINAL VALUES//////////////
+        /////////////FINAL VALUES//////////////
+        /////////////FINAL VALUES//////////////
+        /////////////FINAL VALUES//////////////
+        /////////////FINAL VALUES//////////////
+        /////////////FINAL VALUES//////////////
+        /////////////FINAL VALUES//////////////
+        /////////////FINAL VALUES//////////////
+        /////////////FINAL VALUES//////////////
+
+        StartStream(findViewById(R.id.stream_Back_Driving),"http://192.168.0."+backupCameraIPValue+":8000/stream.mjpg" );
+        StartStream(findViewById(R.id.stream_RightMirror_Driving),"http://192.168.0."+rightCameraIPValue+":8000/stream.mjpg" );
+        StartStream(findViewById(R.id.stream_LeftMirror_Driving),"http://192.168.0."+leftCameraIPValue+":8000/stream.mjpg" );
+
+
+
+
+    }
+//    public void pauseStream(){
+//
+//        //viewer.stopStream();
+//
+//
+//
+//    }
+
+
+
 
     public void StartStream(MjpegView viewer, String url) {
 
@@ -126,47 +220,119 @@ public class MainActivity extends AppCompatActivity {
        // viewer.setMode(MjpegView.MODE_BEST_FIT);
 
         viewer.startStream();
-        Log.d("streamMode", "starting stream"+viewer.getDrawingTime());
+       // viewer.
+        //Log.d("streamMode", "starting stream+ stream time:"+viewer.getDrawingTime());
     }
-    public void EndStream(MjpegView viewer){
-
-        viewer.stopStream();
-        //viewer.clearAnimation();
-        //viewer.setAlpha(0);
-        viewer.setBitmap(null);
-        viewer.setMode(MjpegView.MODE_BEST_FIT);
 
 
 
+
+//    public void EndStream(MjpegView viewer){
+//
+//        viewer.stopStream();
+//        //viewer.clearAnimation();
+//        //viewer.setAlpha(0);
+//        viewer.setBitmap(null);
+//        viewer.setMode(MjpegView.MODE_BEST_FIT);
+//
+//
+//
+//    }
+    @Override
+    public void onStop(){
+        super.onStop();
+        EndAllStreams();
     }
-    public void BackupMode(View view) {
+
+    public void Reverse(View view) {
         ///////////////////////////////////////////////////////replace w camera dao
-        Log.d("backupMode", "starting BackupMode");
+        Log.d("Reverse", "starting BackupMode");
 
         //EndStream(findViewById(R.id.stream_Back));
         //EndStream(findViewById(R.id.stream_LeftMirror));
         //EndStream(findViewById(R.id.stream_RightMirror));
 
-        Log.d("backupMode", "Ending Streams");
 
         //update imageView
         //ConstraintLayout constraintLayout = findViewById(R.id.parentLayout_all3);
-        ConstraintLayout constraintLayout = findViewById(R.id.rootLayout);
+        //start new layout???
+//        ConstraintLayout constraintLayout = findViewById(R.id.rootLayout);
 
-        ConstraintSet constraintSet = new ConstraintSet();
-        constraintSet.clone(constraintLayout);
-        constraintSet.connect(R.id.stream_Back, ConstraintSet.START, R.id.guidelineV01, ConstraintSet.END, 0);
-        constraintSet.connect(R.id.stream_Back, ConstraintSet.END, R.id.guidelineV99, ConstraintSet.START, 0);
+//        View vieeew = findViewById(R.id.stream_LeftMirror);
+//        vieeew.addChildrenForAccessibility();
+//        MjpegView ppp = findViewById(R.id.stream_LeftMirror);
+//        ppp.addChildrenForAccessibility();
 
-        constraintSet.connect(R.id.stream_Back, ConstraintSet.TOP, R.id.guidelineH01, ConstraintSet. BOTTOM, 0);
-        constraintSet.connect(R.id.stream_Back, ConstraintSet.BOTTOM, R.id.guidelineH99, ConstraintSet.TOP, 0);
-        constraintSet.applyTo(constraintLayout);
-        Log.d("backupMode", "SET CONSTRAINSTS");
 
-       MjpegView viewer = (MjpegView) findViewById(R.id.stream_Back);
-       viewer.setMode(MjpegView.MODE_BEST_FIT);
+//        ConstraintSet constraintSet = new ConstraintSet();
+//        constraintSet.clone(constraintLayout);
+//        constraintSet.connect(R.id.stream_Back, ConstraintSet.START, R.id.guidelineV01, ConstraintSet.END, 0);
+//        constraintSet.connect(R.id.stream_Back, ConstraintSet.END, R.id.guidelineV99, ConstraintSet.START, 0);
+//
+//        constraintSet.connect(R.id.stream_Back, ConstraintSet.TOP, R.id.guidelineH01, ConstraintSet. BOTTOM, 0);
+//        constraintSet.connect(R.id.stream_Back, ConstraintSet.BOTTOM, R.id.guidelineH99, ConstraintSet.TOP, 0);
+//        constraintSet.applyTo(constraintLayout);
+//       MjpegView viewer = (MjpegView) findViewById(R.id.stream_Back);
+//       viewer.setMode(MjpegView.MODE_BEST_FIT);
         //StartStream(findViewById(R.id.stream_Back),"http://192.168.0.100" );
 
+
+
+        //stop all streams
+        //restart all streams w new params
+        Log.d("Reverse", "Ending Streams");
+
+        EndAllStreams();
+        //start new stream w backup_reverse size image
+        Log.d("Reverse", "Starting Streams w new Params");
+
+        StartStream(cameraBackup, R.id.stream_Back_Reverse);
+        StartStream(cameraLeftMirror, R.id.stream_LeftMirror_Reverse);
+        StartStream(cameraRightMirror, R.id.stream_RightMirror_Reverse);
+
+    }
+    public void LeftTurn(View view){
+        EndAllStreams();
+        //start new stream w backup_reverse size image
+
+        StartStream(cameraBackup, R.id.stream_Back_LeftTurn);
+        StartStream(cameraLeftMirror, R.id.stream_LeftMirror_LeftTurn);
+        //StartStream(cameraRightMirror, R.id.stream_RightMirror_LeftTurn);
+    }
+    public void RightTurn(View view){
+        EndAllStreams();
+        //start new stream w backup_reverse size image
+
+        StartStream(cameraBackup, R.id.stream_Back_RightTurn);
+        //StartStream(cameraLeftMirror, R.id.stream_LeftMirror_RightTurn);
+        StartStream(cameraRightMirror, R.id.stream_RightMirror_RightTurn);
+    }
+    public void Driving(View view){
+        EndAllStreams();
+        //start new stream w backup_reverse size image
+
+        StartStream(cameraBackup, R.id.stream_Back_Driving);
+        StartStream(cameraLeftMirror, R.id.stream_LeftMirror_Driving);
+        StartStream(cameraRightMirror, R.id.stream_RightMirror_Driving);
+    }
+
+
+
+
+    public void StartStream(Camera camera, int viewer){
+        camera.startStream(viewer);
+
+    }
+
+
+
+
+
+    public void EndAllStreams(){
+            //get all 3 cameras;
+        cameraRightMirror.EndStream();
+        cameraLeftMirror.EndStream();
+        cameraBackup.EndStream();
 
     }
 
@@ -183,7 +349,8 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_lights:
-                startActivity(new Intent(MainActivity.this, LightsActivity.class));
+                Log.d("penis", "starting cameraActivity" );
+                startActivity(new Intent(MainActivity.this, camerasActivity.class));
                 //updateDatabase();
                 return true;
             case R.id.menu_settings:
@@ -199,7 +366,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        //outState.putString(GAME_STATE_KEY, gameState);
+        //outState.putString(TEXT_VIEW_KEY, textView.getText());
+        //pauseStream();
+        // Call superclass to save any view hierarchy.
+        super.onSaveInstanceState(outState);
+    }
 
 
 

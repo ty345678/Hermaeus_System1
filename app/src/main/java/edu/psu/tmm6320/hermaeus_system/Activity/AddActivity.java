@@ -11,13 +11,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
-import edu.psu.tmm6320.hermaeus_system.Light;
-import edu.psu.tmm6320.hermaeus_system.LightDatabase;
-import edu.psu.tmm6320.hermaeus_system.LightStatus;
+import edu.psu.tmm6320.hermaeus_system.Camera;
+import edu.psu.tmm6320.hermaeus_system.CameraDatabase;
 import edu.psu.tmm6320.hermaeus_system.R;
 
 public class AddActivity extends AppCompatActivity {
-        private int light_id;
+        private int camera_id;
         private boolean liked;
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -25,18 +24,19 @@ public class AddActivity extends AppCompatActivity {
             setContentView(R.layout.activity_add);
             setSupportActionBar(findViewById(R.id.my_toolbar));
 
-            light_id = getIntent().getIntExtra("light_id", -1);
+            camera_id = getIntent().getIntExtra("camera_id", -1);
 
             // Note: that we do not want to lose the state if the activity is being
             // recreated
             if (savedInstanceState == null) {
-                if (light_id != -1) {
-                    LightDatabase.getLight(light_id, light -> {
-                        ((EditText) findViewById(R.id.txtEditTitle)).setText(light.name);
-                        ((EditText) findViewById(R.id.txtEditRed)).setText(light.red);
-                        ((EditText) findViewById(R.id.txtEditGreen)).setText(light.green);
-                        ((EditText) findViewById(R.id.txtEditBlue)).setText(light.blue);
-                        liked = light.liked;
+                if (camera_id != -1) {
+                    CameraDatabase.getcamera(camera_id, camera -> {
+                        ((EditText) findViewById(R.id.txtEditTitle)).setText(camera.name);
+                        ((EditText) findViewById(R.id.txtEditRed)).setText(camera.ipAddress);
+                        
+//                        ((EditText) findViewById(R.id.txtEditGreen)).setText(camera.green);
+//                        ((EditText) findViewById(R.id.txtEditBlue)).setText(camera.blue);
+                        liked = camera.liked;
                     });
                 }
             }
@@ -49,13 +49,13 @@ public class AddActivity extends AppCompatActivity {
         public boolean onCreateOptionsMenu(Menu menu) {
             // Inflate the menu; this adds items to the action bar if it is present.
             getMenuInflater().inflate(R.menu.activity_add, menu);
-            if (light_id == -1) {
+            if (camera_id == -1) {
                 menu.getItem(1).setIcon(R.drawable.ic_cancel);
                 menu.getItem(1).setTitle(R.string.menu_cancel);
-                setTitle("Add light");
+                setTitle("Add camera");
             }
             else {
-                setTitle("Edit light");
+                setTitle("Edit camera");
             }
             return true;
         }
@@ -67,7 +67,7 @@ public class AddActivity extends AppCompatActivity {
                     updateDatabase();
                     return true;
                 case R.id.menu_delete:
-                    if (light_id != -1) {
+                    if (camera_id != -1) {
                         ConfirmDeleteDialog confirmDialog = new ConfirmDeleteDialog();
                         confirmDialog.show(getSupportFragmentManager(), "deletionConfirmation");
                     }
@@ -81,22 +81,22 @@ public class AddActivity extends AppCompatActivity {
         }
 
         private void updateDatabase() {
-            Light light = new Light(light_id == -1?0:light_id,
+            Camera camera = new Camera(camera_id == -1?0:camera_id,
                     ((EditText) findViewById(R.id.txtEditName)).getText().toString(),
                     Integer.parseInt(((EditText)findViewById(R.id.txtEditRed)).getText().toString()),
-                    Integer.parseInt(((EditText)findViewById(R.id.txtEditGreen)).getText().toString()),
-                    Integer.parseInt(((EditText)findViewById(R.id.txtEditBlue)).getText().toString()),
+//                    Integer.parseInt(((EditText)findViewById(R.id.txtEditGreen)).getText().toString()),
+//                    Integer.parseInt(((EditText)findViewById(R.id.txtEditBlue)).getText().toString()),
                     liked);
-            if (light_id == -1) {
-                LightDatabase.insert(light);
+            if (camera_id == -1) {
+                CameraDatabase.insert(camera);
             } else {
-                LightDatabase.update(light);
+                CameraDatabase.update(camera);
             }
             finish(); // Quit activity
         }
 
         public void deleteRecord() {
-            LightDatabase.delete(light_id);
+            CameraDatabase.delete(camera_id);
         }
 
         @Override
@@ -112,14 +112,14 @@ public class AddActivity extends AppCompatActivity {
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-                builder.setTitle("Delete the light?")
+                builder.setTitle("Delete the camera?")
                         .setMessage("You will not be able to undo the deletion!")
                         .setPositiveButton("Delete",
                                 (dialog,id) -> {
                                     ((AddActivity) getActivity()).deleteRecord();
                                     getActivity().finish();
                                 })
-                        .setNegativeButton("Return to light list",
+                        .setNegativeButton("Return to camera list",
                                 (dialog, id) -> getActivity().finish());
                 return builder.create();
             }

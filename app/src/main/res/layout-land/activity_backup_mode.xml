@@ -21,7 +21,7 @@
 
 
     <com.longdo.mjpegviewer.MjpegView
-        android:id="@+id/stream_LeftMirror_Driving"
+        android:id="@+id/stream_LeftMirror"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@id/guidelineH99"
@@ -33,7 +33,7 @@
 
 
     <com.longdo.mjpegviewer.MjpegView
-        android:id="@+id/stream_Back_Driving"
+        android:id="@+id/stream_Back"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@id/guidelineH99"
@@ -44,64 +44,7 @@
         />
 
     <com.longdo.mjpegviewer.MjpegView
-    android:id="@+id/stream_RightMirror_Driving"
-    android:layout_width="0dp"
-    android:layout_height="0dp"
-    app:layout_constraintBottom_toTopOf="@id/guidelineH99"
-    app:layout_constraintTop_toBottomOf="@id/guidelineH01"
-    app:layout_constraintStart_toEndOf="@id/guidelineV66"
-    app:layout_constraintEnd_toStartOf="@id/guidelineV99"
-
-    />
-
-
-
-
-
-
-
-    <com.longdo.mjpegviewer.MjpegView
-        android:id="@+id/stream_RightMirror_RightTurn"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@id/guidelineH99"
-        app:layout_constraintTop_toBottomOf="@id/guidelineH01"
-        app:layout_constraintStart_toEndOf="@id/guidelineV33"
-        app:layout_constraintEnd_toStartOf="@id/guidelineV99"
-
-        />
-
-    <com.longdo.mjpegviewer.MjpegView
-        android:id="@+id/stream_Back_RightTurn"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@id/guidelineH99"
-        app:layout_constraintTop_toBottomOf="@id/guidelineH01"
-        app:layout_constraintStart_toEndOf="@id/guidelineV01"
-        app:layout_constraintEnd_toStartOf="@id/guidelineV33"
-
-        />
-
-
-
-
-
-
-
-
-    <com.longdo.mjpegviewer.MjpegView
-        android:id="@+id/stream_LeftMirror_LeftTurn"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@id/guidelineH99"
-        app:layout_constraintTop_toBottomOf="@id/guidelineH01"
-        app:layout_constraintStart_toEndOf="@id/guidelineV01"
-        app:layout_constraintEnd_toStartOf="@id/guidelineV66"
-
-        />
-
-    <com.longdo.mjpegviewer.MjpegView
-        android:id="@+id/stream_Back_LeftTurn"
+        android:id="@+id/stream_RightMirror"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@id/guidelineH99"
@@ -111,64 +54,12 @@
 
         />
 
-
-
-
-
-
-
-
-
-    <com.longdo.mjpegviewer.MjpegView
-        android:id="@+id/stream_LeftMirror_Reverse"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@id/guidelineH99"
-        app:layout_constraintTop_toBottomOf="@id/guidelineH01"
-        app:layout_constraintStart_toEndOf="@id/guidelineV01"
-        app:layout_constraintEnd_toStartOf="@id/guidelineV24"
-
-        />
-
-    <com.longdo.mjpegviewer.MjpegView
-        android:id="@+id/stream_Back_Reverse"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@id/guidelineH99"
-        app:layout_constraintTop_toBottomOf="@id/guidelineH01"
-        app:layout_constraintStart_toEndOf="@id/guidelineV24"
-        app:layout_constraintEnd_toStartOf="@id/guidelineV75"
-
-        />
-    <com.longdo.mjpegviewer.MjpegView
-        android:id="@+id/stream_RightMirror_Reverse"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@id/guidelineH99"
-        app:layout_constraintTop_toBottomOf="@id/guidelineH01"
-        app:layout_constraintStart_toEndOf="@id/guidelineV75"
-        app:layout_constraintEnd_toStartOf="@id/guidelineV99"
-
-        />
-
-
-
-
-
-
-
-
-
-
-
-
-
     <Button
         android:id="@+id/button1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Reverse"
-        android:onClick="Reverse"
+        android:text="BackupMode"
+        android:onClick="BackupMode"
 
         app:layout_constraintTop_toBottomOf="@id/guidelineH83"
         app:layout_constraintBottom_toTopOf="@id/guidelineH99"
@@ -179,8 +70,7 @@
         android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Left Turn"
-        android:onClick="LeftTurn"
+        android:text="Button2"
 
         app:layout_constraintTop_toBottomOf="@id/guidelineH83"
         app:layout_constraintBottom_toTopOf="@id/guidelineH99"
@@ -191,9 +81,7 @@
         android:id="@+id/button3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Right Turn"
-        android:onClick="RightTurn"
-
+        android:text="Button3"
         app:layout_constraintTop_toBottomOf="@id/guidelineH83"
         app:layout_constraintBottom_toTopOf="@id/guidelineH99"
         app:layout_constraintStart_toEndOf="@id/guidelineV50"
@@ -205,8 +93,7 @@
         android:id="@+id/button4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Driving"
-        android:onClick="Driving"
+        android:text="Button4"
 
         app:layout_constraintTop_toBottomOf="@id/guidelineH83"
         app:layout_constraintBottom_toTopOf="@id/guidelineH99"
@@ -230,19 +117,11 @@
         app:layout_constraintGuide_percent="0.16" />
     <androidx.constraintlayout.widget.Guideline
         android:saveEnabled="true"
-        android:id="@+id/guidelineV24"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.24" />
-
-    <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineV33"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:saveEnabled="true"
-        app:layout_constraintGuide_begin="242dp" />
+        app:layout_constraintGuide_percent="0.33" />
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineV50"
         android:layout_width="wrap_content"
@@ -255,12 +134,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.66" />
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineV75"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.75" />
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineV83"
         android:layout_width="wrap_content"

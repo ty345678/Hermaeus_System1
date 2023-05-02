@@ -33,7 +33,7 @@
             </intent-filter>
         </activity>
         <activity
-        android:name=".Activity.LightsActivity"
+        android:name=".Activity.camerasActivity"
         android:exported="true"
         android:screenOrientation="landscape">
         </activity>

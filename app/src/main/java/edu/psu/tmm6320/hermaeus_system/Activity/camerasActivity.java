@@ -23,18 +23,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-import edu.psu.tmm6320.hermaeus_system.Light;
-import edu.psu.tmm6320.hermaeus_system.LightDatabase;
-import edu.psu.tmm6320.hermaeus_system.LightStatus;
-import edu.psu.tmm6320.hermaeus_system.LightViewModel;
+import edu.psu.tmm6320.hermaeus_system.Camera;
+import edu.psu.tmm6320.hermaeus_system.CameraDatabase;
+import edu.psu.tmm6320.hermaeus_system.CameraStatus;
+import edu.psu.tmm6320.hermaeus_system.CameraViewModel;
 import edu.psu.tmm6320.hermaeus_system.R;
 
-public class LightsActivity extends AppCompatActivity {
+public class camerasActivity extends AppCompatActivity {
 
 
 
     private boolean filtered = false;  // Are results filtered by likess
-    private LightViewModel lightViewModel;
+    private CameraViewModel cameraViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,26 +43,32 @@ public class LightsActivity extends AppCompatActivity {
         if (savedInstanceState != null) {
             filtered = savedInstanceState.getBoolean("filtered");
         }
-        Log.d("lights", "Starting LIGHTS");
+        Log.d("cameras", "Starting cameraS");
+        Log.d("penis", "ONCREATE STARTED" );
+
         // Set the action bar
         setSupportActionBar(findViewById(R.id.toolbar));
 
         RecyclerView recyclerView = findViewById(R.id.lstLights);
-        LightListAdapter adapter = new LightListAdapter(this);
+        cameraListAdapter adapter = new cameraListAdapter(this);
         recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        Log.d("lights", "RECYCLER START");
+        //recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        Log.d("cameras", "RECYCLER START");
 
-        lightViewModel = new ViewModelProvider(this).get(LightViewModel.class);
+        cameraViewModel = new ViewModelProvider(this).get(CameraViewModel.class);
 
-        lightViewModel.getAllLights().observe(this, adapter::setLights);
-        Log.d("lightsName", "lightViewModel onCreate:" + lightViewModel.getAllLights());
+        cameraViewModel.getAllcameras().observe(this, adapter::setcameras);
+        Log.d("camerasName", "cameraViewModel onCreate:" + cameraViewModel.getAllcameras());
+        Log.d("penis", "ONCREATE FINISHED" );
 
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        Log.d("lights", "onCreateOptionsMenu" );
+        Log.d("cameras", "onCreateOptionsMenu" );
+        Log.d("penis", "ONCREATE OPTIONS MENU START" );
+
+        cameraViewModel.getAllcameras();
 
         getMenuInflater().inflate(R.menu.activity_lights_list, menu);
 
@@ -71,13 +77,16 @@ public class LightsActivity extends AppCompatActivity {
         } else {
             menu.getItem(1).setIcon(R.drawable.ic_thumb_up);
         }
+        Log.d("penis", "ONCREATEOPTIONS MENU STOP" );
 
         return true;
+
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        Log.d("lights", "onOptionsItemSelected" );
+        Log.d("cameras", "onOptionsItemSelected" );
+        Log.d("penis", "ONOPTIONS START" );
 
         switch (item.getItemId()) {
             case R.id.menu_add:
@@ -91,13 +100,13 @@ public class LightsActivity extends AppCompatActivity {
                     item.setIcon(R.drawable.ic_thumb_up);
                 }
                 RecyclerView recyclerView = findViewById(R.id.lstLights);
-                LightListAdapter adapter = new LightListAdapter(this);
+                cameraListAdapter adapter = new cameraListAdapter(this);
                 recyclerView.setAdapter(adapter);
-                //lightViewModel = new ViewModelProvider(this).get(LightViewModel.class);
-                lightViewModel.filterLights(filtered);
-                Log.d("lightsName", "lightViewModel onOptionSelected:" + lightViewModel.getAllLights());
+                //cameraViewModel = new ViewModelProvider(this).get(cameraViewModel.class);
+                cameraViewModel.filtercameras(filtered);
+                Log.d("camerasName", "cameraViewModel onOptionSelected:" + cameraViewModel.getAllcameras());
 
-                lightViewModel.getAllLights().observe(this, adapter::setLights);
+                cameraViewModel.getAllcameras().observe(this, adapter::setcameras);
 
                 return true;
             default:
@@ -107,22 +116,25 @@ public class LightsActivity extends AppCompatActivity {
 
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
-        Log.d("lights", "onSaveInstanceState" );
+        Log.d("cameras", "onSaveInstanceState" );
 
         super.onSaveInstanceState(outState);
         outState.putBoolean("filtered", filtered);
     }
 
     public void displaySetup(int id) {
-        Log.d("lights", "displaySetup, ID: "+id );
+        Log.d("penis", "displaySetup, ID: "+id );
 
-        LightDatabase.getLight(id, light -> {
+        CameraDatabase.getcamera(id, camera -> {
+            Log.d("penis", "DISPLAY setup getCmera" );
+
             Bundle args = new Bundle();
-            args.putInt("light_id", light.id);
-            args.putString("name", light.name);
-            args.putInt("red", light.red);
-            args.putInt("green", light.green);
-            args.putInt("blue", light.blue);
+            args.putInt("camera_id", camera.id);
+            args.putString("name", camera.name);
+            args.putInt("ipAddress", camera.ipAddress);
+//            args.putInt("red", camera.red);
+//            args.putInt("green", camera.green);
+//            args.putInt("blue", camera.blue);
 
             DisplaySetupDialog setupDialog = new DisplaySetupDialog();
             setupDialog.setArguments(args);
@@ -131,13 +143,13 @@ public class LightsActivity extends AppCompatActivity {
     }
 
 //    public void displayPunchline(int id) {
-//        LightDatabase.getLight(id, light -> {
+//        cameraDatabase.getcamera(id, camera -> {
 //            Bundle args = new Bundle();
-//            args.putInt("light_id", light.id);
-//            args.putString("name", light.name);
-//            args.putInt("red", light.red);
-//            args.putInt("green", light.green);
-//            args.putInt("blue", light.blue);
+//            args.putInt("camera_id", camera.id);
+//            args.putString("name", camera.name);
+//            args.putInt("red", camera.red);
+//            args.putInt("green", camera.green);
+//            args.putInt("blue", camera.blue);
 //
 //            DisplayPunchlineDialog punchlineDialog = new DisplayPunchlineDialog();
 //            punchlineDialog.setArguments(args);
@@ -149,96 +161,106 @@ public class LightsActivity extends AppCompatActivity {
     // Notes: This can be an outer class or a static nested class. We will make an inner class
     // since it is only used in the MainActivity _and_ we would like to simplify communication
     // with the activity
-    public class LightListAdapter extends RecyclerView.Adapter<LightListAdapter.LightViewHolder> {
-        // If the lightListAdapter were an outer class, the lightViewHolder could be
+    public class cameraListAdapter extends RecyclerView.Adapter<cameraListAdapter.cameraViewHolder> {
+        // If the cameraListAdapter were an outer class, the cameraViewHolder could be
         // a static class.  We want to be able to get access to the MainActivity instance,
         // so we want it to be an inner class
-        class LightViewHolder extends RecyclerView.ViewHolder {
+        class cameraViewHolder extends RecyclerView.ViewHolder {
             private final TextView nameView;
-            private final TextView redView;
-            private final TextView greenView;
-            private final TextView blueView;
+            private final TextView ipAddress;
+//            private final TextView redView;
+//            private final TextView greenView;
+//            private final TextView blueView;
             private final ImageView likedView;
 
-            //private LightStatus light;
-            private Light light;
+            //private cameraStatus camera;
+            private CameraStatus camera;
 
             // Note that this view holder will be used for different items -
             // The callbacks though will use the currently stored item
-            private LightViewHolder(View itemView) {
+            private cameraViewHolder(View itemView) {
                 super(itemView);
+                Log.d("cameras","cameraViewHolder");
+                Log.d("penis", "ON camera VIew HOLDer start?" );
+
                 nameView = itemView.findViewById(R.id.txtName);
-                redView = itemView.findViewById(R.id.txtRed);
-                greenView = itemView.findViewById(R.id.txtGreen);
-                blueView = itemView.findViewById(R.id.txtBlue);
+                ipAddress = itemView.findViewById(R.id.txtRed);
+//                redView = itemView.findViewById(R.id.txtRed);
+//                greenView = itemView.findViewById(R.id.txtGreen);
+//                blueView = itemView.findViewById(R.id.txtBlue);
                 likedView = itemView.findViewById(R.id.imgLiked);
 
                 itemView.setOnLongClickListener(view -> {
                     // Note that we need a reference to the MainActivity instance
-                    Intent intent = new Intent(LightsActivity.this, AddActivity.class);
+                    Intent intent = new Intent(camerasActivity.this, AddActivity.class);
                     // Note getItemId will return the database identifier
-                    intent.putExtra("light_id", light.id);
+                    intent.putExtra("camera_id", camera.id);
                     // Note that we are calling a method of the MainActivity object
                     startActivity(intent);
                     return true;
                 });
 
-                itemView.setOnClickListener(view -> displaySetup(light.id));
+                itemView.setOnClickListener(view -> displaySetup(camera.id));
 
                 likedView.setOnClickListener(view -> {
-                    //if(light.liked == null) light.liked = true;
+                    //if(camera.liked == null) camera.liked = true;
                     //else
-                    if (light.liked) light.liked = false;
-                    else light.liked = true;
+                    if (camera.liked) camera.liked = false;
+                    else camera.liked = true;
 
-                    //light.liked = !light.liked;
-                    LightDatabase.update(light.id, light.liked);
+                    //camera.liked = !camera.liked;
+                    CameraDatabase.update(camera.id, camera.liked);
                 });
             }
         }
 
         private final LayoutInflater layoutInflater;
-       // private List<LightStatus> lights; // Cached copy of lights
-        private List<Light> lights; // Cached copy of lights
+       // private List<cameraStatus> cameras; // Cached copy of cameras
+        private List<CameraStatus> cameras; // Cached copy of cameras
 
-        LightListAdapter(Context context) {
+        cameraListAdapter(Context context) {
             layoutInflater = LayoutInflater.from(context);
         }
 
         @Override
-        public LightViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        public cameraViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            Log.d("penis", "on create view holder -- cameraViewHOlder" );
+
             View itemView = layoutInflater.inflate(R.layout.list_item, parent, false);
-            return new LightViewHolder(itemView);
+            return new cameraViewHolder(itemView);
         }
 
         @Override
-        public void onBindViewHolder(@NonNull LightViewHolder holder, int position) {
-//            Log.d("lightsName", "OnBindViewHolder");
+        public void onBindViewHolder(@NonNull cameraViewHolder holder, int position) {
+//            Log.d("camerasName", "OnBindViewHolder");
+            Log.d("penis", "onBindVIewHolder start!!!!!!!!!!!!!!" );
 
-            if (lights != null) {
-//                Log.d("lights", "Lights != Null");
+            if (cameras != null) {
+                Log.d("penis", "onBindVIewHOlder cameras!=null start" );
+
+//                Log.d("cameras", "cameras != Null");
 
 
 
-                //LightStatus current = lights.get(position);
-                Light current = lights.get(position);
+                //cameraStatus current = cameras.get(position);
+                CameraStatus current = cameras.get(position);
 
-//                Log.d("lightsName", "Position:" +
+//                Log.d("camerasName", "Position:" +
 //                        position);
-//                Log.d("lightsName", "get Position:" +
-//                        lights.get(position));
-//                Log.d("lightsName", "getPosition NAMEEEEEE:" +
-//                        lights.get(position).name);
-//                Log.d("lightsName", "CURRENT:" +
+//                Log.d("camerasName", "get Position:" +
+//                        cameras.get(position));
+//                Log.d("camerasName", "getPosition NAMEEEEEE:" +
+//                        cameras.get(position).name);
+//                Log.d("camerasName", "CURRENT:" +
 //                        current);
 //
-//                Log.d("lightsName", "CURRENT.name: " +
+//                Log.d("camerasName", "CURRENT.name: " +
 //                        current.name);
 //
-//                Log.d("lightsName", "CURRENT.red toString: " +
+//                Log.d("camerasName", "CURRENT.red toString: " +
 //                        Integer.toString(current.red));
 
-                holder.light = current;
+                holder.camera = current;
 
                 holder.nameView.setText(current.name);
                 //holder.redView.setText(current.red);
@@ -247,16 +269,18 @@ public class LightsActivity extends AppCompatActivity {
 //                        current.heightFt, current.idealLevel, current.lowLevel, current.highLevel));
 //                holder.txtTemp.setText(String.format("Temperature %.1f C",current.tempC));
 //                holder.txtRiver.setText(current.river);
-//                Log.d("lights", "About to set text redView...");
+//                Log.d("cameras", "About to set text redView...");
 
-                holder.redView.setText(Integer.toString(current.red));
-                holder.greenView.setText(Integer.toString(current.green));
-                holder.blueView.setText(Integer.toString(current.blue));
+
+                holder.ipAddress.setText(Integer.toString(current.ipAddress));
+//                holder.redView.setText(Integer.toString(current.red));
+//                holder.greenView.setText(Integer.toString(current.green));
+//                holder.blueView.setText(Integer.toString(current.blue));
                 /////////////////////////////////////////////////////////////////
                 /////////////////////////////////////////////////////////////////
                 /////////////////////////////////////////////////////////////////
                 /////////////////////////////////////////////////////////////////
-//                Log.d("lights", "SET REDVIEW");
+//                Log.d("cameras", "SET REDVIEW");
 
 
                 if (current.liked) {
@@ -266,32 +290,39 @@ public class LightsActivity extends AppCompatActivity {
                     holder.likedView.setImageResource(R.drawable.ic_thumb_down);
                 }
             } else {
-//                Log.d("lightsName", "setting Null Values" );
+//                Log.d("camerasName", "setting Null Values" );
 
                 // Covers the case of data not being ready yet.
                 holder.nameView.setText("...intializing...");
-                holder.redView.setText("Red");
-                holder.greenView.setText("Green");
-                holder.blueView.setText("Blue");
+                holder.ipAddress.setText("ipAddress");
+//                holder.redView.setText("Red");
+//                holder.greenView.setText("Green");
+//                holder.blueView.setText("Blue");
 
                 holder.likedView.setImageResource(R.drawable.ic_thumb_down);
                 holder.likedView.setTag("N");
-//                Log.d("lightsName", "set Null Values setted" );
+//                Log.d("camerasName", "set Null Values setted" );
 
             }
         }
 
-        void setLights(List<Light> lights){
-            this.lights = lights;
-            Log.d("lightsName", "lights Name in setData:" + lights);
+        void setcameras(List<CameraStatus> cameras){
+            Log.d("penis", "setCameras" );
+
+            this.cameras = cameras;
+            for(int i =0; i<cameras.size();i++) {
+                Log.d("camerasName", "cameras Name in setCameras:" + cameras.get(i).name);
+            }
 
             notifyDataSetChanged();
         }
 
         @Override
         public int getItemCount() {
-            if (lights != null)
-                return lights.size();
+            Log.d("penis", "getItemCount" );
+
+            if (cameras != null)
+                return cameras.size();
             else return 0;
         }
 
@@ -303,23 +334,23 @@ public class LightsActivity extends AppCompatActivity {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     public static class DisplaySetupDialog extends DialogFragment {
-        int light_id;
+        int camera_id;
 
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            light_id = getArguments().getInt("light_id");
+            camera_id = getArguments().getInt("camera_id");
             final String title = getArguments().getString("name");
             final Integer red = getArguments().getInt("red");
             final Integer green = getArguments().getInt("green");
             final Integer blue = getArguments().getInt("blue");
             builder.setTitle(title)
                     .setMessage("Red: "+red+"\nGreen: "+green+"\nBlue: "+blue)
-                    .setNeutralButton("Enable",(dialog, id) -> ((LightsActivity) getActivity()).EnableLightColor(light_id))
+                    .setNeutralButton("Enable",(dialog, id) -> ((camerasActivity) getActivity()).EnablecameraColor(camera_id))
                     .setPositiveButton("Liked",(dialog, id) -> {
-                        LightDatabase.getLight(light_id, light -> {
-                            light.liked = true;
-                            LightDatabase.update(light);
+                        CameraDatabase.getcamera(camera_id, camera -> {
+                            camera.liked = true;
+                            CameraDatabase.update(camera);
                         });
                     })
                     .setNegativeButton("Cancel", (dialog, id) -> {});
@@ -333,8 +364,8 @@ public class LightsActivity extends AppCompatActivity {
         }
     }
 
-    public static void EnableLightColor(int lightID){
-        //todo update light colors ?
+    public static void EnablecameraColor(int cameraID){
+        //todo update camera colors ?
     }
 
 
@@ -347,7 +378,7 @@ public class LightsActivity extends AppCompatActivity {
 //            private final TextView blue;
 //            private final TextView green;
 //            private final ImageView likedView;
-//           private LightStatus lightspot;
+//           private cameraStatus cameraspot;
 //
 //            private ViewHolder(View itemView) {
 //                super(itemView);
@@ -359,15 +390,15 @@ public class LightsActivity extends AppCompatActivity {
 //                likedView = itemView.findViewById(R.id.imgLiked);
 //
 //                likedView.setOnClickListener(view -> {
-//                    if (lightspot.liked == null) lightspot.liked = true;
-//                    else if (lightspot.liked) lightspot.liked = false;
-//                    else lightspot.liked = null;
+//                    if (cameraspot.liked == null) cameraspot.liked = true;
+//                    else if (cameraspot.liked) cameraspot.liked = false;
+//                    else cameraspot.liked = null;
 //                });
 //            }
 //        }
 //
 //        private final LayoutInflater layoutInflater;
-//       private List<LightStatus> lightspots;
+//       private List<cameraStatus> cameraspots;
 //
 //        ListAdapter(Context context) {
 //            layoutInflater = LayoutInflater.from(context);
@@ -382,10 +413,10 @@ public class LightsActivity extends AppCompatActivity {
 //        @SuppressLint("DefaultLocale")
 //        @Override
 //        public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-//            if (lightspots != null) {
-//                LightStatus current = lightspots.get(position);
-//                holder.lightspot = current;
-////                holder.txtlightspot.setText(current.lightspot);
+//            if (cameraspots != null) {
+//                cameraStatus current = cameraspots.get(position);
+//                holder.cameraspot = current;
+////                holder.txtcameraspot.setText(current.cameraspot);
 ////                holder.txtLevel.setText(String.format("Current Level: %.2f    Ideal Level: %.1f\nRange: %.1f-%.1f ",
 ////                        current.heightFt, current.idealLevel, current.lowLevel, current.highLevel));
 ////                holder.txtTemp.setText(String.format("Temperature %.1f C",current.tempC));
@@ -412,7 +443,7 @@ public class LightsActivity extends AppCompatActivity {
 //                }
 //            } else {
 //                // Covers the case of data not being ready yet.
-//                holder.lightspot = null;
+//                holder.cameraspot = null;
 //                holder.name.setText("... initializing ...");
 //                holder.red.setText("");
 //                holder.green.setText("");
@@ -421,15 +452,15 @@ public class LightsActivity extends AppCompatActivity {
 //            }
 //        }
 //
-//        void setData(List<LightStatus> lightspots){
-//            this.lightspots = lightspots;
+//        void setData(List<cameraStatus> cameraspots){
+//            this.cameraspots = cameraspots;
 //            notifyDataSetChanged();
 //        }
 //
 //        @Override
 //        public int getItemCount() {
-//            if (lightspots != null)
-//                return lightspots.size();
+//            if (cameraspots != null)
+//                return cameraspots.size();
 //            else return 0;
 //        }
 //    }
