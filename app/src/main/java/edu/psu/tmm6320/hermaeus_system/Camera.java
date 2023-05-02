@@ -67,6 +67,7 @@ public class Camera {
 //        viewer.stopStream();
 //        viewer.setBitmap(null);
 //        viewer.setMode(MjpegView.MODE_BEST_FIT);
+
     }
 
 

@@ -330,9 +330,9 @@ public class MainActivity extends AppCompatActivity {
 
     public void EndAllStreams(){
             //get all 3 cameras;
-        cameraRightMirror.EndStream();
-        cameraLeftMirror.EndStream();
-        cameraBackup.EndStream();
+//        cameraRightMirror.EndStream();
+//        cameraLeftMirror.EndStream();
+//        cameraBackup.EndStream();
 
     }
 
