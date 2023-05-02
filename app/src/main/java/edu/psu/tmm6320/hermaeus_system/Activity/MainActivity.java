@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         setSupportActionBar(findViewById(R.id.toolbar));
 
-        startService(new Intent(this, Service.class));
+        //startService(new Intent(this, Service.class));
 
 
         //1 create cameras
