@@ -52,8 +52,8 @@ public class MainActivity extends AppCompatActivity {
     //public int backupCameraIPValue = 100; //////remove
 
 
-    public int backupCameraIPValue = 150;
-    public int rightCameraIPValue = 151;
+    public int backupCameraIPValue = 151;
+    public int rightCameraIPValue = 150;
     public int leftCameraIPValue = 152;
 
     //camera.createViewer? -- get ip/etc from database;
@@ -128,9 +128,9 @@ public class MainActivity extends AppCompatActivity {
 
         //GetCameraIP();
 
-        StartStream(viewerLeftMirror,"http://192.168.0.100" );
+        //StartStream(viewerLeftMirror,"http://192.168.0.100" );
 
-        //StartStream(viewerLeftMirror,leftCameraIPValue );
+        StartStream(viewerLeftMirror,leftCameraIPValue );
         StartStream(viewerRightMirror,rightCameraIPValue );
         StartStream(viewerBackup,backupCameraIPValue );
 
@@ -371,10 +371,10 @@ public class MainActivity extends AppCompatActivity {
         /////////////FINAL VALUES//////////////
         /////////////FINAL VALUES//////////////
 
-        StartStream(findViewById(R.id.stream_Back_Driving),"http://192.168.0."+backupCameraIPValue+":8000/stream.mjpg" );
-        StartStream(findViewById(R.id.stream_RightMirror_Driving),"http://192.168.0."+rightCameraIPValue+":8000/stream.mjpg" );
-        StartStream(findViewById(R.id.stream_LeftMirror_Driving),"http://192.168.0."+leftCameraIPValue+":8000/stream.mjpg" );
-
+//        StartStream(findViewById(R.id.stream_Back_Driving),"http://192.168.0."+backupCameraIPValue+":8000/stream.mjpg" );
+//        StartStream(findViewById(R.id.stream_RightMirror_Driving),"http://192.168.0."+rightCameraIPValue+":8000/stream.mjpg" );
+//        StartStream(findViewById(R.id.stream_LeftMirror_Driving),"http://192.168.0."+leftCameraIPValue+":8000/stream.mjpg" );
+//
 
 
 
@@ -390,20 +390,21 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    public void StartStream(MjpegView viewer, String url) {
+//    public void StartStream(MjpegView viewer, String url) {
+//
+//        viewer.setMode(MjpegView.MODE_FIT_HEIGHT);
+//        //viewer.setAdjustHeight(true);
+//        //viewer.setSupportPinchZoomAndPan(true);
+//        //viewer.setUrl("https://bma-itic1.iticfoundation.org/mjpeg2.php?camid=test");
+////        viewer.setUrl("http://192.168.0.100");
+//        viewer.setUrl(url);
+//       // viewer.setMode(MjpegView.MODE_BEST_FIT);
+//
+//        viewer.startStream();
+//       // viewer.
+//        //Log.d("streamMode", "starting stream+ stream time:"+viewer.getDrawingTime());
+//    }
 
-        viewer.setMode(MjpegView.MODE_FIT_HEIGHT);
-        //viewer.setAdjustHeight(true);
-        //viewer.setSupportPinchZoomAndPan(true);
-        //viewer.setUrl("https://bma-itic1.iticfoundation.org/mjpeg2.php?camid=test");
-//        viewer.setUrl("http://192.168.0.100");
-        viewer.setUrl(url);
-       // viewer.setMode(MjpegView.MODE_BEST_FIT);
-
-        viewer.startStream();
-       // viewer.
-        //Log.d("streamMode", "starting stream+ stream time:"+viewer.getDrawingTime());
-    }
     public void StartStream(MjpegView viewer, int IP) {
         String url = "http://192.168.0."+IP+":8000/stream.mjpg";
 
@@ -416,8 +417,8 @@ public class MainActivity extends AppCompatActivity {
 
 //        viewer.setMode(MjpegView.MODE_FIT_WIDTH);
         viewer.setMode(MjpegView.MODE_FIT_HEIGHT);
-        //viewer.setAdjustHeight(true);
-        //viewer.setSupportPinchZoomAndPan(true);
+        viewer.setAdjustHeight(true);
+        viewer.setSupportPinchZoomAndPan(true);
         //viewer.setUrl("https://bma-itic1.iticfoundation.org/mjpeg2.php?camid=test");
 //        viewer.setUrl("http://192.168.0.100");
         viewer.setUrl(url);
@@ -515,7 +516,7 @@ public class MainActivity extends AppCompatActivity {
 
         StartStream(viewerBackup,backupCameraIPValue);
         StartStream(viewerLeftMirror,leftCameraIPValue);
-        StartStream(viewerRightMirror,rightCameraIPValue);
+        //StartStream(viewerRightMirror,rightCameraIPValue);
 
 //        StartStream(findViewById(R.id.stream_Back_LeftTurn),backupCameraIPValue);
 //        StartStream(findViewById(R.id.stream_LeftMirror_LeftTurn),leftCameraIPValue);
@@ -533,7 +534,7 @@ public class MainActivity extends AppCompatActivity {
         viewerBackup =findViewById(R.id.stream_Back_RightTurn);
 
         StartStream(viewerBackup,backupCameraIPValue);
-        StartStream(viewerLeftMirror,leftCameraIPValue);
+        //StartStream(viewerLeftMirror,leftCameraIPValue);
         StartStream(viewerRightMirror,rightCameraIPValue);
 
 //        StartStream(findViewById(R.id.stream_Back_LeftTurn),backupCameraIPValue);
