@@ -49,11 +49,11 @@ public class MainActivity extends AppCompatActivity {
 
 
     //todo get from camera database
-    public int backupCameraIPValue = 100; //////remove
+    //public int backupCameraIPValue = 100; //////remove
 
 
-//    public int backupCameraIPValue = 150;
-    public int rightCameraIPValue = 150;
+    public int backupCameraIPValue = 150;
+    public int rightCameraIPValue = 151;
     public int leftCameraIPValue = 152;
 
     //camera.createViewer? -- get ip/etc from database;
