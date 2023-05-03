@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">List of Lights</string>
+    <string name="app_name">Hermaeus Car System</string>
     <string name="joke">Joke</string>
     <string name="menu_add">Add</string>
     <string name="menu_thumb_up">Display Liked Jokes</string>
